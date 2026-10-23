@@ -1,0 +1,42 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "18.24% to 27.74%", "state": "grounded"},
+    "trigger": {"value": "Applies to purchase balances. No interest is charged on purchases if you pay your entire balance by the due date each month, which is at least 25 days after the close of each billing cycle.", "state": "grounded"},
+    "plain_language_warning": {"value": "Carrying a purchase balance costs 18.24% to 27.74% a year, and your rate within that range is not disclosed here. You avoid this interest only by paying your full balance by each due date.", "state": "grounded"},
+    "source_quote": {"quotes": ["18.24% to 27.74%", "We will not charge you interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "28.49%", "state": "grounded"},
+    "trigger": {"value": "Applies to cash advances. Interest begins accruing on the transaction date, with no grace period, even if you pay your balance in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances cost 28.49% a year and start racking up interest the day you take them, with no grace period, so there is no way to use them interest-free.", "state": "grounded"},
+    "source_quote": {"quotes": ["28.49%", "We will begin charging interest on cash advances and balance transfers on the transaction date."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "", "state": "unstated"},
+    "trigger": {"value": "Applies to balance transfers. Interest begins accruing on the transaction date, with no grace period, even if you pay your balance in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Balance transfers start accruing interest the day they post, with no grace period, so you cannot avoid interest by paying on time. The rate for balance transfers is not disclosed in this document.", "state": "grounded"},
+    "source_quote": {"quotes": ["We will begin charging interest on cash advances and balance transfers on the transaction date."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment", "state": "grounded"},
+    "amount": {"value": "Up to $40", "state": "grounded"},
+    "trigger": {"value": "Charged when you do not make a required payment on time.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing a payment due date can cost up to $40 each time, a fee that is easy to trigger with a single missed or late payment.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $40"], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Return Payment", "state": "grounded"},
+    "amount": {"value": "Up to $40", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment to your account is returned or not honored.", "state": "grounded"},
+    "plain_language_warning": {"value": "If a payment bounces, for example from insufficient funds or an autopay failure, you can be charged up to $40 each time.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $40"], "state": "grounded"},
+    "severity": "high"
+  }
+]

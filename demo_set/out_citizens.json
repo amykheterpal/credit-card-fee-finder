@@ -1,0 +1,98 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "27.49% variable APR, based on creditworthiness and varying with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Applies to balances on purchases. You can avoid interest on purchases by paying your entire balance by the due date each month (a grace period of at least 25 days); lose the grace period by paying less than the full balance and interest accrues from the transaction date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Carrying a purchase balance costs about 27.49% a year, and the rate floats with the Prime Rate so it can climb. You only avoid this interest if you pay the statement in full every month; pay even a dollar short and interest starts from the purchase date.", "state": "grounded"},
+    "source_quote": {"quotes": ["27.49%. This APR will be based on your creditworthiness andwill vary with the market based on the Prime Rate.*", "We will not charge you interest on Purchases if you pay your entire balance by the due date of each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "27.49% variable APR, based on creditworthiness and varying with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Applies to balance transfer balances. There is no interest-free period: interest is charged beginning on the transaction date until the amount is paid in full, even if you pay your statement balance by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Transferred balances are charged about 27.49% a year starting the day of the transfer, with no grace period, so interest builds even if you pay on time. The rate is variable and can rise with the Prime Rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["27.49%. This APR will be based on your creditworthiness and will vary with the market based on the Prime Rate*", "There is no interest-free period for cash advance or balance transfer transactions.", "You will pay interest on Cash Advances, Balance Transfers and Convenience Checks from the transaction date."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "28.49% variable APR, varying with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Applies to cash advance balances (cash, ATM, convenience checks, and cash equivalents). There is no interest-free period: interest is charged beginning on the transaction date (the day you receive the cash advance) until paid in full, even if you pay your statement balance by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances cost about 28.49% a year, higher than the purchase rate, and interest starts the moment you take the cash with no grace period. The variable rate can rise with the Prime Rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["28.49%. This APR will vary with the market based on the Prime Rate.*", "There is no interest-free period for cash advance or balance transfer transactions.", "The transaction date for cash advances and related cash advance fees is the day you receive the cash advance."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance Transaction Fee", "state": "grounded"},
+    "amount": {"value": "Cash Loans, ATM Loans, and Convenience Check Loans: either $10 or up to 5% of the amount of each advance, whichever is greater. Cash Equivalent Transactions: either $10 or 5% of the amount of each advance, whichever is greater.", "state": "grounded"},
+    "trigger": {"value": "Charged each time you take a cash advance, including cash or ATM withdrawals, convenience checks, and cash-equivalent purchases (such as money orders, gift cards, wire transfers, or gambling chips). The fee is treated as a cash advance and accrues interest at the cash advance APR from the transaction date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Every cash advance adds at least $10, or 5% of the amount if that is larger, on top of the higher 28.49% cash advance rate that starts accruing immediately. Note that money orders, gift cards, and similar cash-equivalent buys count as cash advances too.", "state": "grounded"},
+    "source_quote": {"quotes": ["Cash Loans, ATM Loans, and Convenience Check Loans: Either $10 or up to 5%\nof the amount of each advance, whichever is greater.", "Cash Equivalent Transactions: Either $10 or 5% of the amount of each advance,\nwhichever is greater", "The transaction fee\nwill accrue interest at the APR for cash advances."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Balance Transfer Transaction Fee", "state": "grounded"},
+    "amount": {"value": "Either $10 or 5% of the amount of each transfer, whichever is greater", "state": "grounded"},
+    "trigger": {"value": "Charged each time you make a balance transfer. The transaction fee itself accrues interest at the APR for purchases.", "state": "grounded"},
+    "plain_language_warning": {"value": "Moving a balance costs at least $10, or 5% of the transfer if that is more, and that fee then accrues interest at the purchase rate. On a large transfer the 5% can be a sizable up-front charge.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $10 or 5% of the amount of each transfer, whichever is greater.", "We will also\ncharge you a transaction fee as described in your Rates and Fees Table. The transaction\nfee will accrue interest at the APR for purchases."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "$29 for the first occurrence and up to $40 for additional occurrences during the next six billing cycles; in no event will the late payment fee exceed the minimum payment", "state": "grounded"},
+    "trigger": {"value": "Charged if we do not receive your minimum payment by the payment due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing the minimum payment by the due date triggers a $29 fee, rising to as much as $40 if it happens again within six billing cycles. This is easy to trip and can also push you toward default.", "state": "grounded"},
+    "source_quote": {"quotes": ["Your late payment fee is $29 for the first occurrence and\nup to $40 for additional occurrences during the next six billing cycles. In no event will your\nlate payment fee exceed the minimum payment.", "We may charge your account a late payment fee if we do not receive your minimum\npayment by the payment due date."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Foreign Transaction Fee", "state": "grounded"},
+    "amount": {"value": "Either $1.50 or 3% of the U.S. dollar amount of each transaction, whichever is greater", "state": "grounded"},
+    "trigger": {"value": "Charged on transactions conducted in a currency other than U.S. Dollars, including online or phone purchases made in a foreign currency. It is treated as an interest charge that accrues interest at the APR for purchases.", "state": "grounded"},
+    "plain_language_warning": {"value": "Any purchase in a foreign currency, including online orders from overseas sellers, adds 3% (at least $1.50). Because it is treated as an interest charge, it can also accrue interest at the purchase rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $1.50 or 3% of the U.S. dollar amount of each transaction, whichever is\ngreater.", "If a foreign transaction fee applies to your Account, we will charge you a fee for transactions\nthat are conducted in a currency other than U.S. Dollars."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Stop Payment Fee", "state": "grounded"},
+    "amount": {"value": "$29", "state": "grounded"},
+    "trigger": {"value": "Charged when you request that we stop payment on a check you have written, including balance transfer checks and other checks that access your Account.", "state": "grounded"},
+    "plain_language_warning": {"value": "Asking the bank to stop payment on a convenience or balance transfer check costs $29 each time. The request only lasts six months unless you renew it.", "state": "grounded"},
+    "source_quote": {"quotes": ["We may charge your Account a stop payment fee of $29 when you request that we stop\npayment of a check you have requested (including balance transfer checks and other checks\nthat access your Account)."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Expedited service fee", "state": "grounded"},
+    "amount": {"value": "Not stated in this document; the amount is disclosed at the time you request the service.", "state": "unstated"},
+    "trigger": {"value": "May be charged when you choose to make a payment by an alternative method such as telephone or Internet and request expedited service.", "state": "grounded"},
+    "plain_language_warning": {"value": "Paying by phone or online on a rush basis can carry an expedited service fee. The amount is not disclosed here, so you only learn the cost when you request it.", "state": "grounded"},
+    "source_quote": {"quotes": ["including charging an expedited\nservice fee of which we will inform you at that time."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Card Replacement Fee", "state": "grounded"},
+    "amount": {"value": "$10, plus possible additional fees for expedited or overseas delivery", "state": "grounded"},
+    "trigger": {"value": "Charged if we replace a stolen, lost, or damaged Card; additional fees may apply for expedited or overseas delivery of the replacement.", "state": "grounded"},
+    "plain_language_warning": {"value": "Replacing a lost, stolen, or damaged card costs $10, with extra charges if you need it rushed or sent overseas.", "state": "grounded"},
+    "source_quote": {"quotes": ["If we replace a stolen, lost or damaged Card, we may charge your Account a Card\nreplacement fee of $10. We may charge additional fees for expedited or overseas delivery of\nyour replacement Card."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Copy Fee", "state": "grounded"},
+    "amount": {"value": "$5 for each page of photocopy of any sales slip or other record, plus $30 per hour for the time it takes employees or agents to make the copies, to the extent permitted by law", "state": "grounded"},
+    "trigger": {"value": "Charged when you request a photocopy of a sales slip or other record of your Account.", "state": "grounded"},
+    "plain_language_warning": {"value": "Requesting copies of your account records costs $5 a page plus $30 an hour of staff time, so a large request can add up.", "state": "grounded"},
+    "source_quote": {"quotes": ["We may charge your Account a copy fee of $5 for each page of photocopy of any sales slip\nor other record of your Account plus $30 per hour for the time it takes our employees or\nagents to make the copies, to the extent permitted by law."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Minimum Interest Charge", "state": "grounded"},
+    "amount": {"value": "No less than $1.50", "state": "grounded"},
+    "trigger": {"value": "Charged when any interest charge is due; the interest charge for the cycle will be at least the stated minimum.", "state": "grounded"},
+    "plain_language_warning": {"value": "In any month you owe interest, the charge is at least $1.50 even if the calculated interest would be less. It is a small floor and is avoided entirely by paying in full.", "state": "grounded"},
+    "source_quote": {"quotes": ["If you are charged interest, charge will be no less than $1.50"], "state": "grounded"},
+    "severity": "low"
+  }
+]

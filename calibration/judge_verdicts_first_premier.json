@@ -1,0 +1,338 @@
+[
+  {
+    "id": "fp_00",
+    "fee_name": "APR for Purchases",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_01",
+    "fee_name": "APR for Purchases",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_02",
+    "fee_name": "APR for Purchases",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_03",
+    "fee_name": "APR for Cash Advances",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_04",
+    "fee_name": "APR for Cash Advances",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_05",
+    "fee_name": "APR for Cash Advances",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_06",
+    "fee_name": "Program Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_07",
+    "fee_name": "Program Fee",
+    "field": "trigger",
+    "verdict": "fail",
+    "reason": "Misattributes the drop to ~$225 available credit to the Program Fee. The document says the $95 Program Fee is paid before the account opens (not drawn from the line); the $225 figure is the $300 limit minus the $75 annual fee."
+  },
+  {
+    "id": "fp_08",
+    "fee_name": "Program Fee",
+    "field": "plain_language_warning",
+    "verdict": "fail",
+    "reason": "Says the $95 Program Fee eats into the credit line down to ~$225. The Program Fee is paid up front before opening; the ~$225 available credit reflects the $75 annual fee charged to the line, not the Program Fee."
+  },
+  {
+    "id": "fp_09",
+    "fee_name": "Annual Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_10",
+    "fee_name": "Annual Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_11",
+    "fee_name": "Annual Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_12",
+    "fee_name": "Monthly Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_13",
+    "fee_name": "Monthly Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_14",
+    "fee_name": "Monthly Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_15",
+    "fee_name": "Cash Advance Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_16",
+    "fee_name": "Cash Advance Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_17",
+    "fee_name": "Cash Advance Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_18",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_19",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_20",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_21",
+    "fee_name": "Late Payment Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_22",
+    "fee_name": "Late Payment Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_23",
+    "fee_name": "Late Payment Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_24",
+    "fee_name": "Return Item Charge",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_25",
+    "fee_name": "Return Item Charge",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_26",
+    "fee_name": "Return Item Charge",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_27",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_28",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_29",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_30",
+    "fee_name": "Additional Card Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_31",
+    "fee_name": "Additional Card Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_32",
+    "fee_name": "Additional Card Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_33",
+    "fee_name": "Express Delivery Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_34",
+    "fee_name": "Express Delivery Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_35",
+    "fee_name": "Express Delivery Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_36",
+    "fee_name": "Collection Costs",
+    "field": "amount",
+    "verdict": "fail",
+    "reason": "Amount is left blank; it does not even state that no dollar figure is given and that collection costs are open-ended, which the document supports."
+  },
+  {
+    "id": "fp_37",
+    "fee_name": "Collection Costs",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_38",
+    "fee_name": "Collection Costs",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_39",
+    "fee_name": "Minimum Interest Charge",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_40",
+    "fee_name": "Minimum Interest Charge",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_41",
+    "fee_name": "Minimum Interest Charge",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  },
+  {
+    "id": "fp_42",
+    "fee_name": "Copying Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_43",
+    "fee_name": "Copying Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_44",
+    "fee_name": "Copying Fee",
+    "field": "plain_language_warning",
+    "verdict": "fail",
+    "reason": "Claims the fee is easy to avoid by using online copies, but the First Premier document never mentions online copies, so that avoidance advice is unsupported."
+  },
+  {
+    "id": "fp_45",
+    "fee_name": "Wire Transfer Fee",
+    "field": "amount",
+    "verdict": "pass",
+    "reason": "Figure and any tier/formula match the document; wording differs only."
+  },
+  {
+    "id": "fp_46",
+    "fee_name": "Wire Transfer Fee",
+    "field": "trigger",
+    "verdict": "pass",
+    "reason": "Names the real condition and preserves the grace/no-grace or escape-hatch detail the document states."
+  },
+  {
+    "id": "fp_47",
+    "fee_name": "Wire Transfer Fee",
+    "field": "plain_language_warning",
+    "verdict": "pass",
+    "reason": "Every claim is supported by the document; consumer rephrasing only."
+  }
+]

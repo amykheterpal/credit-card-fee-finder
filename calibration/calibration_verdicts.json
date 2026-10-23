@@ -1,0 +1,18 @@
+[
+  {"id": "c01", "fee_name": "Cash Advance Fee", "field": "amount", "verdict": "pass", "reason": "The $10 figure and the whichever-is-greater 5% formula are both preserved; only the wording differs."},
+  {"id": "c02", "fee_name": "Cash Advance Fee", "field": "amount", "verdict": "fail", "reason": "Drops the 5% or whichever-is-greater tier, which understates the fee on any large advance."},
+  {"id": "c03", "fee_name": "Cash Advance Fee", "field": "amount", "verdict": "fail", "reason": "States $5, but the document's cash advance fee is $10; $5 is the balance-transfer fee."},
+  {"id": "c04", "fee_name": "Late Payment Fee", "field": "amount", "verdict": "pass", "reason": "Captures the up-to-$40 figure, the $29 first-violation cap, and the minimum-payment cap, all in the document."},
+  {"id": "c05", "fee_name": "Late Payment Fee", "field": "amount", "verdict": "fail", "reason": "Calls it a flat $40 and omits the $29 first-violation tier and the minimum-payment cap the document states."},
+  {"id": "c06", "fee_name": "Rush Card Fee", "field": "amount", "verdict": "pass", "reason": "The document defers the amount to a separate fee schedule, so marking it not stated is correct."},
+  {"id": "c07", "fee_name": "Cash Advance APR", "field": "trigger", "verdict": "pass", "reason": "Correct: interest accrues from the posting date with no grace period, exactly as the document states."},
+  {"id": "c08", "fee_name": "Cash Advance APR", "field": "trigger", "verdict": "fail", "reason": "Claims a grace period for cash advances that the document explicitly denies."},
+  {"id": "c09", "fee_name": "Purchase APR", "field": "trigger", "verdict": "pass", "reason": "Correct purchase grace-period escape hatch: pay the full purchase balance by the due date to avoid interest."},
+  {"id": "c10", "fee_name": "Purchase APR", "field": "trigger", "verdict": "fail", "reason": "Denies the purchase grace period that the document grants."},
+  {"id": "c11", "fee_name": "Cash Advance Fee", "field": "plain_language_warning", "verdict": "pass", "reason": "The $10 or 5% figure and the immediate no-grace interest are both supported by the excerpt."},
+  {"id": "c12", "fee_name": "Cash Advance Fee", "field": "plain_language_warning", "verdict": "fail", "reason": "Asserts cash advances can be interest-free within a grace period, which the document denies."},
+  {"id": "c13", "fee_name": "Late Payment Fee", "field": "plain_language_warning", "verdict": "pass", "reason": "The $40, the $29 first-violation cap, and the minimum-payment cap are all supported."},
+  {"id": "c14", "fee_name": "Late Payment Fee", "field": "plain_language_warning", "verdict": "fail", "reason": "Invents an immediate penalty-APR hike on all balances that the excerpt does not support."},
+  {"id": "c15", "fee_name": "Purchase APR", "field": "plain_language_warning", "verdict": "pass", "reason": "Supported: the purchase grace period and interest from the posting date on a carried balance."},
+  {"id": "c16", "fee_name": "Balance Transfer", "field": "plain_language_warning", "verdict": "fail", "reason": "Promises a promotional 0% rate the document does not offer and contradicts the no-grace clause."}
+]

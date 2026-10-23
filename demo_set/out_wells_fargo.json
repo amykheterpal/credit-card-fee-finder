@@ -1,0 +1,74 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "Prime Rate + 11.74% to Prime Rate + 21.74%, based on your creditworthiness (19.24% to 29.24% as of December 20, 2022); varies with the U.S. Prime Rate; Maximum APR is 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Interest on purchase balances. You can avoid interest on new purchases by paying your entire balance by the due date each billing period (at least 25 days after the close of the billing period).", "state": "grounded"},
+    "plain_language_warning": {"value": "Carrying a purchase balance costs roughly 19% to 29% a year, and the rate floats with the Prime Rate up to a 29.99% cap. You only escape purchase interest if you pay the full balance by each due date.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 11.74% to Prime Rate + 21.74%, based on your creditworthiness.", "We will not charge you any interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "Prime Rate + 11.74% to Prime Rate + 21.74%, based on your creditworthiness (19.24% to 29.24% as of December 20, 2022); varies with the U.S. Prime Rate; Maximum APR is 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Interest on balance transfer balances. Accrues with no grace period; you cannot avoid interest on balance transfers even if you pay in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "A balance transfer starts accruing interest immediately at about 19% to 29% a year, with no grace period, so there is no way to pay it off interest-free the way you can with purchases.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 11.74% to Prime Rate + 21.74%, based on your creditworthiness.", "You cannot avoid interest on Cash Advances or Balance Transfers."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances and Overdraft Protection Advances", "state": "grounded"},
+    "amount": {"value": "Prime Rate + 22.74% (29.99% as of December 20, 2022); varies with the U.S. Prime Rate; Maximum APR is 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Interest on cash advance and overdraft protection advance balances. Accrues with no grace period; you cannot avoid interest on cash advances even if you pay in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances and overdraft protection advances carry the highest rate, about 29.99% a year, and start accruing interest right away with no grace period, so there is no interest-free window.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 22.74%", "You cannot avoid interest on Cash Advances or Balance Transfers."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Balance Transfer Fee", "state": "grounded"},
+    "amount": {"value": "Up to 5% for each balance transfer, with a minimum of $5.", "state": "grounded"},
+    "trigger": {"value": "Charged on each balance transfer transaction.", "state": "grounded"},
+    "plain_language_warning": {"value": "Each balance transfer costs up to 5% of the amount moved (at least $5), charged on top of the balance transfer interest that starts immediately.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to 5% for each balance transfer, with a minimum of $5."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance Fee", "state": "grounded"},
+    "amount": {"value": "Either $10 or 5% of the amount of each advance, whichever is greater.", "state": "grounded"},
+    "trigger": {"value": "Charged on each Cash Advance from your Account, including ATM withdrawals, overdraft protection advances, and cash-like transactions.", "state": "grounded"},
+    "plain_language_warning": {"value": "Every cash advance costs at least $10, or 5% of the amount if that is larger, and it stacks on top of the no-grace cash advance interest rate of about 29.99%, making cash advances very expensive.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $10 or 5% of the amount of each advance, whichever is greater."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Foreign Currency Conversion Fee", "state": "grounded"},
+    "amount": {"value": "3% of each transaction converted to U.S. dollars.", "state": "grounded"},
+    "trigger": {"value": "Charged when you make a transaction in a foreign currency and Visa converts it to U.S. dollars. Not charged if a merchant outside the U.S. converts the transaction to U.S. dollars itself at the point of sale.", "state": "grounded"},
+    "plain_language_warning": {"value": "Transactions in a foreign currency add a 3% fee when Visa converts them to dollars, so foreign and some online purchases cost 3% more. You can avoid the bank's fee only if the merchant does the dollar conversion at checkout.", "state": "grounded"},
+    "source_quote": {"quotes": ["3% of each transaction converted to U.S. dollars.", "If the latter option is chosen, the currency conversion rate is determined solely by the merchant involved in the transaction, and no foreign currency conversion fee is charged by the bank for the transaction."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment", "state": "grounded"},
+    "amount": {"value": "The lesser of the Minimum Payment or $29; for any subsequent late event within a rolling six billing cycle period, the lesser of the Minimum Payment or $40 (summarized as Up to $40).", "state": "grounded"},
+    "trigger": {"value": "Charged each time Wells Fargo does not receive the required Minimum Payment by the Payment Due Date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing the minimum payment by the due date costs up to $29 the first time and up to $40 if you are late again within six billing cycles, so repeated lateness is penalized more heavily.", "state": "grounded"},
+    "source_quote": {"quotes": ["The fee will be the lesser of the Minimum Payment or $29. For any subsequent event within a rolling six billing cycle period, the fee will be the lesser of the Minimum Payment or $40."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Rush Plastic Fee", "state": "grounded"},
+    "amount": {"value": "Not stated in this document; the amount is disclosed in the Important Terms of Your Credit Card Account.", "state": "unstated"},
+    "trigger": {"value": "Charged if you request expedited delivery for your credit card.", "state": "grounded"},
+    "plain_language_warning": {"value": "Asking for rush delivery of your card can trigger a fee. The amount is not stated here, so confirm the cost before requesting expedited delivery.", "state": "grounded"},
+    "source_quote": {"quotes": ["This fee may be charged if you requested expedited delivery for your credit card."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Minimum Interest Charge", "state": "grounded"},
+    "amount": {"value": "No less than $1.00.", "state": "grounded"},
+    "trigger": {"value": "Applies in any billing cycle in which you are charged interest and the calculated interest would be less than $1.00.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you are charged any interest, the minimum is $1.00 even when the calculated interest would be less. You avoid it entirely by not carrying an interest-bearing balance.", "state": "grounded"},
+    "source_quote": {"quotes": ["If you are charged interest, the charge will be no less than $1.00."], "state": "grounded"},
+    "severity": "low"
+  }
+]

@@ -1,0 +1,115 @@
+[
+  {
+    "fee_name": {"value": "Annual Percentage Rate (APR) for Purchases", "state": "grounded"},
+    "amount": {"value": "34.99% APR, applied as a daily rate of .09587% to the daily balance; interest compounds daily because each day's interest is added to the next day's starting balance", "state": "grounded"},
+    "trigger": {"value": "Charged on purchases from the purchase date until paid in full. Exception: no interest on new non-promotional purchases if you had no balance at the start of the cycle, or paid the prior balance in full by the due date. Promotional purchases are always charged interest from the purchase date unless special promotional terms say otherwise. If you did not pay in full in the prior cycle, interest runs from the first day of the current cycle even if you then pay in full and on time.", "state": "grounded"},
+    "plain_language_warning": {"value": "At 34.99%, carrying any balance is very expensive. Interest compounds daily. If you miss paying in full even one month, you can still owe interest on the next statement after paying everything off, because interest keeps running until your payment arrives.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "The daily rate for purchases is .09587% (APR 34.99%).",
+      "We charge interest on your purchases from the date you make the purchase until you pay the purchase in full.",
+      "We always charge interest on promotional purchases and their related fees from the date you make the purchase.",
+      "If you did not pay your balance in full in the prior billing cycle, interest will be calculated on your balance from the first day of the current billing cycle until we receive your payment in full, even if you pay your balance in full and on time and make no new charges in the current billing cycle.",
+      "How to get the starting balance for the next day: We add the daily interest amount in step 2 to the daily balance from step 1."
+    ], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Penalty APR", "state": "grounded"},
+    "amount": {"value": "39.99% APR (daily rate .10957%), which may apply to all new transactions and may remain in effect indefinitely", "state": "grounded"},
+    "trigger": {"value": "The summary table says the Penalty APR may apply if you make a late payment. The detailed terms say it may apply if the total minimum payment is not received by the due date two or more times during any 12 consecutive billing cycles. These clauses conflict on whether one late payment is enough.", "state": "ambiguous"},
+    "plain_language_warning": {"value": "Late payments can push your rate to 39.99%, possibly on all new transactions, with no fixed end date. The bank only says it will review your account from time to time for a possible reduction. The document gives conflicting triggers: one late payment in the summary, two in 12 cycles in the fine print.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "This APR may be applied to your account if you make a late payment.",
+      "A Penalty APR may be applied if we do not receive the total minimum payment due on your account by the payment due date two or more times during any 12 consecutive billing cycles.",
+      "Once the Penalty APR is in effect, the daily rates and APRs will increase and may apply to all new transactions.",
+      "If your APRs are increased for this reason, the Penalty APR may remain in effect indefinitely.",
+      "After we apply the Penalty APR, we will review your account from time to time to see if a reduction in APR is appropriate."
+    ], "state": "ambiguous"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "$30, or $41 if you failed to pay the total minimum payment by the due date in any of the prior six billing cycles; never more than the total minimum payment that was due", "state": "grounded"},
+    "trigger": {"value": "The total minimum payment is not received by the due date following the instructions on your statement. Payments received after the due date are credited the next day.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing a due date costs $30, rising to $41 for six billing cycles after any late payment. The fee is treated as a new purchase, so it accrues interest at 34.99%. Late payments can also trigger the 39.99% Penalty APR and may appear on your credit report.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "We will charge this fee if we do not receive the total minimum payment due on your account by the due date in accordance with the requirements set forth on each billing statement.",
+      "1. $30, if you have paid your total minimum payment due by the due date in each of the prior six billing cycles.",
+      "2. $41, if you have failed to pay your total minimum payment due by the due date in any one or more of the prior six billing cycles.",
+      "The late payment fee will not be more than the total minimum payment that was due.",
+      "Debt cancellation fees, if any, and late payment fees, returned payment fees and paper statement fees are treated as new purchases.",
+      "Payments received after the due date will be credited as of the next day."
+    ], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Promotional Fee", "state": "grounded"},
+    "amount": {"value": "2% of the total promotional transaction amount, including taxes, delivery and other applicable charges; added to the promotional purchase balance and spread across the required equal monthly payments", "state": "grounded"},
+    "trigger": {"value": "Making a purchase under a promotion of 18 months or longer with no interest and required equal monthly payments. The summary table describes it as applying to some promotions of 18 months or more.", "state": "grounded"},
+    "plain_language_warning": {"value": "A long no-interest promotion is not free: 2% of the full purchase price, including taxes and delivery, is added to your balance. On a $2,000 purchase that is $40. The fee is built into your monthly payments, so it is easy to miss.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "2% of total promotional transaction amount for some promotions with a duration of 18 months or more.",
+      "We will charge this fee, which may be referred to as a promo fee, for promotions 18 months or longer with no interest and required equal monthly payments.",
+      "The promotional fee will be calculated based on the total promotional transaction amount, including taxes, delivery and other applicable charges.",
+      "The promotional fee will be included in your promotional purchase balance used to calculate your required equal monthly payments."
+    ], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Paper Statement Fee", "state": "grounded"},
+    "amount": {"value": "$1.99 per billing cycle, up to $23.88 per year", "state": "grounded"},
+    "trigger": {"value": "Charged in any billing cycle where your balance is over $2.50 and you are sent a paper statement, even if you also receive it electronically. Avoidable only by receiving statements in electronic form only, selected on the servicing site.", "state": "grounded"},
+    "plain_language_warning": {"value": "You pay $1.99 every month you get a paper statement, even if you also get an electronic one. Over a year that adds up to nearly $24. The fee is treated as a new purchase and can accrue interest at 34.99%. You must choose electronic-only statements to avoid it.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "We will charge a $1.99 monthly Paper Statement Fee to your account.",
+      "We will charge this fee in any billing cycle in which your balance is greater than $2.50 and you are sent a monthly billing statement in paper form, even if you also are provided it in electronic form.",
+      "You can avoid the fee each billing cycle you are provided your monthly billing statement only in electronic form.",
+      "Debt cancellation fees, if any, and late payment fees, returned payment fees and paper statement fees are treated as new purchases."
+    ], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Returned Payment Fee", "state": "grounded"},
+    "amount": {"value": "$30, or $41 if you had a returned payment fee in any of the prior six billing cycles; not more than the amount permitted by applicable law", "state": "grounded"},
+    "trigger": {"value": "Any payment (check, other instrument, or electronic authorization) that is not honored, is returned unpaid, or cannot be processed for any reason. Can be charged even if the payment later goes through when the bank resubmits it.", "state": "grounded"},
+    "plain_language_warning": {"value": "A bounced or unprocessable payment costs $30 to $41. You can be charged even if the bank later resubmits the payment and it clears. The fee is treated as a new purchase and accrues interest at 34.99%.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "We will charge this fee for any returned payment, such as if any check, other instrument, or electronic payment authorization you provide us in payment on your account is not honored, returned unpaid or cannot be processed for any reason.",
+      "1. $30, if you have not had a returned payment fee in each of the prior six billing cycles.",
+      "2. $41, if you have had a returned payment fee in any one or more of the prior six billing cycles.",
+      "A returned payment fee may be charged even if your payment is honored on a subsequent representment."
+    ], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Expedited phone payment fee", "state": "grounded"},
+    "amount": {"value": "Not stated in the agreement", "state": "unstated"},
+    "trigger": {"value": "Making an expedited payment over the phone, if the bank allows phone payments", "state": "grounded"},
+    "plain_language_warning": {"value": "Paying by phone at the last minute may cost a fee, and the agreement does not say how much. Ask the amount before you pay, or pay online or by mail ahead of the due date.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "We may allow you to make payments over the phone but we may charge you a fee to make expedited phone payments."
+    ], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Collection Costs", "state": "grounded"},
+    "amount": {"value": "Not stated as a dollar amount; includes court costs and reasonable attorney fees", "state": "unstated"},
+    "trigger": {"value": "The bank asks an outside attorney (not its salaried employee) to collect your account", "state": "grounded"},
+    "plain_language_warning": {"value": "If your account goes to an outside attorney for collection, you can be charged the bank's collection costs, including court costs and attorney fees, on top of what you already owe. No cap or amount is stated.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "If we ask an attorney who is not our salaried employee to collect your account, we may charge you our collection costs."
+    ], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Minimum Interest Charge", "state": "grounded"},
+    "amount": {"value": "$2.00 minimum interest in any billing cycle in which interest is owed; any amount above the calculated interest is treated as a new purchase", "state": "grounded"},
+    "trigger": {"value": "Owing any interest in a billing cycle where the calculated interest is less than $2.00", "state": "grounded"},
+    "plain_language_warning": {"value": "Even a few cents of interest is rounded up to $2.00. The extra above the actual interest is added to your balance as a new purchase.", "state": "grounded"},
+    "source_quote": {"quotes": [
+      "We charge a minimum of $2.00 of interest in any billing cycle in which you owe interest.",
+      "Minimum interest charges in excess of the calculated interest are treated as new purchases."
+    ], "state": "grounded"},
+    "severity": "low"
+  }
+]

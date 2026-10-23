@@ -1,0 +1,554 @@
+<title>Fee-Trap Finder</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  /* Layout: upload card, then a three-step loop status, then a severity-ranked fee report. App treatment. */
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --surface-2: #faf8f5;
+    --fg: #1c1c1a;
+    --muted: #6a675f;
+    --line: #e2dfd8;
+    --accent: #7a5c2e;
+    --accent-fg: #ffffff;
+    --high: #9e2b25; --high-bg: #f7e4e2;
+    --med: #9a6a12; --med-bg: #f6ebd6;
+    --low: #3f6b50; --low-bg: #e2eee6;
+    --flag: #7a5c2e; --flag-bg: #efe7d8;
+    --code-bg: #efece6;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-num: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1917; --surface: #242320; --surface-2: #201f1c; --fg: #ece9e2; --muted: #a29d92;
+      --line: #35332e; --accent: #cfa96a; --accent-fg: #1a1917;
+      --high: #e98b84; --high-bg: #3a211f; --med: #d9ab5c; --med-bg: #342a18;
+      --low: #8dc7a3; --low-bg: #1f3027; --flag: #cfa96a; --flag-bg: #2d2717;
+      --code-bg: #2d2b27; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1917; --surface: #242320; --surface-2: #201f1c; --fg: #ece9e2; --muted: #a29d92;
+    --line: #35332e; --accent: #cfa96a; --accent-fg: #1a1917;
+    --high: #e98b84; --high-bg: #3a211f; --med: #d9ab5c; --med-bg: #342a18;
+    --low: #8dc7a3; --low-bg: #1f3027; --flag: #cfa96a; --flag-bg: #2d2717;
+    --code-bg: #2d2b27; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.55; }
+  .wrap { max-width: 820px; margin: 0 auto; padding-block: 2.4rem 4rem; padding-inline: 20px; }
+  header { border-bottom: 2px solid var(--fg); padding-bottom: 1.1rem; margin-bottom: 1.6rem; }
+  .eyebrow { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 5vw, 2.7rem); line-height: 1.04; margin: 0; }
+  .sub { color: var(--muted); margin: .7rem 0 0; font-size: 1rem; max-width: 62ch; }
+  .disclaimer { margin-top: .9rem; font-size: .82rem; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: 7px; padding: .5rem .7rem; display: inline-block; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.3rem; margin: 1.2rem 0; }
+  .drop { border: 2px dashed var(--line); border-radius: 10px; padding: 1.8rem 1.2rem; text-align: center; transition: border-color .15s, background .15s; cursor: pointer; }
+  .drop.over { border-color: var(--accent); background: var(--surface-2); }
+  .drop p { margin: .3rem 0; }
+  .drop .big { font-weight: 600; font-size: 1.05rem; }
+  .drop .small { color: var(--muted); font-size: .85rem; }
+  input[type=file] { display: none; }
+  .row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; margin-top: 1rem; }
+  button { font-family: inherit; font-size: .95rem; font-weight: 600; border-radius: 8px; border: 1px solid var(--line); padding: .6rem 1.1rem; cursor: pointer; background: var(--surface); color: var(--fg); }
+  button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  .linkish { background: none; border: none; color: var(--accent); padding: .3rem 0; text-decoration: underline; font-size: .88rem; }
+  textarea { width: 100%; min-height: 150px; margin-top: .7rem; border: 1px solid var(--line); border-radius: 8px; padding: .7rem; font-family: var(--font-num); font-size: .82rem; background: var(--surface-2); color: var(--fg); resize: vertical; }
+  .filename { font-size: .9rem; color: var(--muted); margin-top: .6rem; font-family: var(--font-num); }
+  .filename.err { color: var(--high); font-weight: 600; }
+  .filename.lowq { color: var(--med); font-weight: 600; }
+
+  /* loop stepper */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; margin: 1.1rem 0 .3rem; }
+  .step { border: 1px solid var(--line); border-radius: 9px; padding: .8rem; background: var(--surface-2); }
+  .step .k { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; }
+  .step .v { margin-top: .3rem; font-size: .9rem; min-height: 1.2em; }
+  .step.active { border-color: var(--accent); }
+  .step.done .k { color: var(--low); }
+  .spin { display: inline-block; width: .8em; height: .8em; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: s .8s linear infinite; vertical-align: -1px; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+  .err { color: var(--high); background: var(--high-bg); border-radius: 8px; padding: .7rem .9rem; margin-top: 1rem; font-size: .9rem; }
+
+  /* results */
+  h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; margin: 2.2rem 0 .8rem; padding-bottom: .35rem; border-bottom: 1px solid var(--line); }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+  .tile .n { font-family: var(--font-num); font-size: 1.8rem; font-weight: 600; line-height: 1; }
+  .tile .l { color: var(--muted); font-size: .76rem; margin-top: .4rem; text-transform: uppercase; letter-spacing: .05em; }
+
+  details.review { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: .4rem .9rem; margin: 1rem 0; }
+  details.review summary { cursor: pointer; font-weight: 600; padding: .5rem 0; }
+  details.review .inner { padding: .3rem 0 .7rem; font-size: .92rem; }
+  .fix { margin: .45rem 0; padding-left: .9rem; border-left: 2px solid var(--accent); }
+  .fix .what { font-weight: 600; }
+  .muted { color: var(--muted); }
+
+  .fee { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--sev); border-radius: 10px; padding: 1.1rem 1.2rem; margin: .9rem 0; }
+  .fee.high { --sev: var(--high); }
+  .fee.med { --sev: var(--med); }
+  .fee.low { --sev: var(--low); }
+  .fee-head { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; }
+  .fee-name { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; margin: 0; }
+  .badge { font-size: .68rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .16rem .5rem; border-radius: 5px; }
+  .badge.high { color: var(--high); background: var(--high-bg); }
+  .badge.med { color: var(--med); background: var(--med-bg); }
+  .badge.low { color: var(--low); background: var(--low-bg); }
+  .amount { font-family: var(--font-num); font-size: .9rem; color: var(--accent); margin-left: auto; }
+  .warn { margin: .6rem 0 .5rem; }
+  .field { font-size: .9rem; margin: .35rem 0; }
+  .field .lab { color: var(--muted); font-weight: 600; }
+  blockquote { margin: .6rem 0 0; padding: .5rem .8rem; background: var(--code-bg); border-radius: 7px; font-size: .84rem; color: var(--fg); border-left: 3px solid var(--line); }
+  blockquote p { margin: .25rem 0; }
+  .states { margin-top: .6rem; display: flex; gap: .4rem; flex-wrap: wrap; }
+  .chip { font-size: .68rem; font-weight: 600; padding: .14rem .45rem; border-radius: 5px; background: var(--flag-bg); color: var(--flag); }
+  .flagmark { font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--flag); background: var(--flag-bg); padding: .1rem .4rem; border-radius: 5px; align-self: center; }
+  .controls { display: flex; gap: .5rem; flex-wrap: wrap; margin: .2rem 0 .4rem; }
+  .controls button { font-size: .82rem; padding: .4rem .75rem; }
+  details.evidence { margin-top: .7rem; border-top: 1px solid var(--line); }
+  details.evidence > summary { cursor: pointer; list-style: none; padding: .55rem 0 .15rem; font-size: .85rem; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: .45rem; }
+  details.evidence > summary::-webkit-details-marker { display: none; }
+  .caret { display: inline-block; transition: transform .15s; font-size: .7em; }
+  details.evidence[open] .caret { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) { .caret { transition: none; } }
+  .ev-label::after { content: "Show the exact clause and flags"; }
+  details.evidence[open] .ev-label::after { content: "Hide the clause and flags"; }
+  .ev-body { padding-bottom: .5rem; }
+  .cardfb { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
+  .cardfb-label { font-size: .8rem; color: var(--muted); margin-right: .2rem; }
+  .cardfb button { font-size: .8rem; padding: .25rem .6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); cursor: pointer; }
+  .feedback h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; margin: 0 0 .3rem; }
+  .fb-q { margin: .9rem 0; }
+  .fb-label { font-size: .92rem; margin-bottom: .45rem; }
+  .fb-opts, .nps { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .feedback button { font-size: .85rem; padding: .4rem .75rem; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--fg); cursor: pointer; }
+  .nps button { min-width: 2.1rem; text-align: center; font-variant-numeric: tabular-nums; }
+  .feedback button.sel, .cardfb button.sel { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  .fb-thanks { margin-top: .6rem; font-size: .88rem; color: var(--low); font-weight: 600; }
+  .fb-note { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+  footer { margin-top: 2.6rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .83rem; }
+  [hidden] { display: none !important; }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Consumer fee analyzer</p>
+    <h1>Fee-Trap Finder</h1>
+    <p class="sub">Upload one credit card agreement. The agent reads the rates-and-fees box and the fine print, pulls out the real fees with their amounts, triggers, and the exact clause each comes from, then reviews and corrects its own work before showing you a plain-language report ranked by how much the fee could cost you.</p>
+    <span class="disclaimer">Reads one document. Uses no personal data. Never tells you whether to get, keep, or close a card.</span>
+  </header>
+
+  <div id="unavailable" class="card" hidden>
+    <b>This finder runs inside Claude.</b>
+    <p class="muted" style="margin:.5rem 0 0">It asks Claude to read the agreement, so it needs to be opened from your Claude account. Open this artifact in claude.ai and allow it to use Claude when prompted.</p>
+  </div>
+
+  <div id="intake" class="card" hidden>
+    <div id="drop" class="drop">
+      <p class="big">Drop a credit card agreement PDF here</p>
+      <p class="small">or click to choose a file. Public CFPB agreements work well.</p>
+      <input id="file" type="file" accept="application/pdf,.pdf">
+    </div>
+    <div id="fname" class="filename" hidden></div>
+    <div class="row">
+      <button id="run" class="primary" disabled>Analyze fees</button>
+      <button id="pastebtn" class="linkish" type="button">or paste the agreement text instead</button>
+    </div>
+    <textarea id="paste" hidden placeholder="Paste the full agreement text here, then click Analyze fees."></textarea>
+  </div>
+
+  <div id="progress" class="card" hidden>
+    <div class="steps">
+      <div class="step" id="s1"><div class="k">1 · Extract</div><div class="v"></div></div>
+      <div class="step" id="s2"><div class="k">2 · Self-review</div><div class="v"></div></div>
+      <div class="step" id="s3"><div class="k">3 · Revise</div><div class="v"></div></div>
+    </div>
+    <div class="row">
+      <button id="stop">Stop</button>
+      <span id="phase" class="muted"></span>
+    </div>
+    <div id="err" class="err" hidden></div>
+  </div>
+
+  <div id="results" hidden>
+    <h2>Fee report</h2>
+    <div class="tiles">
+      <div class="tile"><div class="n" id="t-total">0</div><div class="l">Fees found</div></div>
+      <div class="tile"><div class="n" id="t-high">0</div><div class="l">High severity</div></div>
+      <div class="tile"><div class="n" id="t-flag">0</div><div class="l">Unstated or ambiguous</div></div>
+    </div>
+
+    <details class="review" id="review">
+      <summary>What the self-review changed</summary>
+      <div class="inner" id="review-body"></div>
+    </details>
+
+    <div class="controls">
+      <button id="expandAll" type="button">Expand all clauses</button>
+      <button id="collapseAll" type="button">Collapse all</button>
+    </div>
+    <div id="fees"></div>
+
+    <div class="feedback card" id="feedback">
+      <h3>Was this helpful?</h3>
+      <div class="fb-q">
+        <div class="fb-label">Did this show you a fee you did not already know about?</div>
+        <div class="fb-opts" id="fb-useful">
+          <button type="button" data-v="yes">Yes</button>
+          <button type="button" data-v="no">No</button>
+        </div>
+      </div>
+      <div class="fb-q">
+        <div class="fb-label">How likely are you to recommend Fee-Trap Finder to a friend? (0 = not at all, 10 = extremely)</div>
+        <div class="nps" id="fb-nps"></div>
+      </div>
+      <div id="fb-thanks" class="fb-thanks" hidden>Thanks, your feedback was recorded.</div>
+      <div class="fb-note">Per-fee: use the "In your agreement?" buttons on each card to flag anything that looks wrong.</div>
+    </div>
+
+    <div class="row">
+      <button id="again" type="button">Analyze another agreement</button>
+    </div>
+  </div>
+
+  <footer>
+    The agent flags missing or conflicting information as unstated or ambiguous rather than guessing, and quotes the exact clause behind each fee so you can check it. It does not give financial or legal advice.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- the extraction rules (shared across all three steps) ----
+  var RULES = [
+    "You extract the fees from a credit card agreement. The purpose is to warn a consumer, before or during card ownership, about the fees that could cost them the most, or that are not obvious and may be buried in the fine print rather than the summary table.",
+    "",
+    "SCOPE",
+    "Include the fees the card actually charges. Review the entire document, since fees may be hidden in the fine print. Do not include: fees not mentioned; fees marked \"None\" or stated as not applicable; the minimum payment, which is not a fee. When the Rates and Fees Table or summary box marks a fee \"None\" but the body text still describes its mechanism, the table controls and the fee is not emitted (e.g. a Penalty APR shown as \"None\" in the table is excluded even though the agreement describes how a penalty APR would work). Do not emit a fee the document only mentions generically with no amount and no trigger of its own. If the same fee is described in more than one place, or under two names that are the same charge (e.g. a re-opening fee and a reinstatement fee), emit it as one entry, not several.",
+    "For APRs, emit a SEPARATE entry for each common card use the agreement mentions AND gives either a rate or a distinct interest mechanism (a grace or no-grace rule, or a stated accrual start such as interest from the transaction date): purchases, cash advances, balance transfers, and the penalty APR. Key them separately even when the agreement states a single combined rate; never fold two uses into one entry. Mark the amount unstated when a use has a distinct mechanism but no rate is stated here. Do not emit an entry for a use named only in passing with no rate and no distinct treatment. State each entry's grace behavior in its own trigger, grounded to what the document says: mark no-grace or day-one accrual as grounded only when the agreement states it; if the agreement describes the grace period only for purchases and is silent on cash advances or balance transfers, mark that use's grace behavior unstated or as an inference, not grounded. Do not emit niche product-specific APRs such as an installment-loan APR.",
+    "",
+    "OUTPUT: a JSON array of fee objects, each exactly this shape:",
+    '{"fee_name":{"value":"...","state":"grounded|unstated|ambiguous"},"amount":{"value":"...","state":"..."},"trigger":{"value":"...","state":"..."},"plain_language_warning":{"value":"...","state":"..."},"source_quote":{"quotes":["..."],"state":"..."},"severity":"high|med|low"}',
+    "- amount: the full pricing rule including tiers and formulas, not the summary shorthand.",
+    "- trigger: the condition that causes the fee, including any escape hatch or avoidance condition.",
+    "- plain_language_warning: a consumer-facing caution in your own words, led by the cost and the non-obvious catch.",
+    "- source_quote: verbatim clause(s) from the document behind the amount and trigger.",
+    "",
+    "FIELD STATES (each field, including fee_name, carries its own): grounded = supported by a verbatim clause; unstated = no clause supports a value (e.g. an amount deferred to a separate disclosure), the fee still gets a record; ambiguous = competing clauses, carry both in source_quote.",
+    "",
+    "SEVERITY",
+    "- high: Path 1 (easily triggered AND a meaningful dollar amount AND not obvious from marketing) OR Path 2 (a large fixed charge relative to the credit line, OR an APR at or near the top of the market).",
+    "- low: BOTH the amount is minor on realistic total impact (a small charge that recurs every cycle is NOT minor) AND the fee is rarely triggered or trivially avoided. An unstated amount cannot be low. APRs are never low.",
+    "- med: the residual, a real noticeable fee that is neither severe nor trivial.",
+    "- APR severity by rate: top of market (roughly mid-30 percents and up) is high; mid-market is med; unstated rate is med. A penalty APR is high by its mechanic regardless of rate.",
+    "- A cash advance fee stacks on a no-grace cash advance APR and is high. A late payment fee is high when easily triggered and a meaningful amount. A return payment or returned item fee is med (a bounced payment is less easily triggered than a late one) unless its amount is large relative to the credit line. A balance transfer fee is med, not high, even though it also stacks on a no-grace APR, because a balance transfer is often a money-saving move (often at a promotional rate), so the fee is the cost of a beneficial action, not a trap. Opt-in financing at or below the purchase APR is med, not high.",
+    "- Severity scores the fee's own charge, not downstream consequences of a default (acceleration, rebate forfeiture).",
+    "",
+    "GUARDRAILS: never fabricate a quote. A source_quote must be the document's own words in their original order; you may collapse whitespace and line breaks when copying, but never stitch together non-adjacent passages. If a field cannot be grounded, mark it unstated; do not invent fees or include \"None\" fees; never recommend for or against the card or give financial or legal advice; the warning must not state anything the document does not support."
+  ].join("\n");
+
+  var EXTRACT = RULES + "\n\nReturn ONLY the JSON array of fee objects for the agreement below, and nothing else.\n\nAGREEMENT:\n";
+
+  var CRITIQUE_INTRO = [
+    "You are the reviewer. A draft fee extraction is below, produced from the agreement by the same rules. Find its mistakes before it reaches a consumer. The rules it must follow:",
+    "",
+    RULES,
+    "",
+    "Check the DRAFT against the AGREEMENT for:",
+    "- Groundedness: collapse all runs of spaces and line breaks to a single space in BOTH the quote and the agreement, then check the quote appears as one contiguous run. Do NOT flag a quote for differing line breaks, wrapping, or spacing: whitespace normalization is expected and fine. Flag a quote ONLY when its words are not actually in the document, or when it stitches together non-adjacent passages.",
+    "- Missed fees: any fee the agreement actually charges that the draft omitted.",
+    "- Invented or bare-mention fees: any draft entry not actually charged, or only mentioned generically.",
+    "- Severity: any rating that breaks the severity rules (e.g. a cash advance fee rated med, an APR rated low, an unstated amount rated low, a top-of-market APR not high).",
+    "- Field states: judge grounding against the AGREEMENT, not against the source_quote list. Flag a field only when its state is actually wrong: it is marked grounded but the agreement does not state that value (should be unstated), or the value rests on competing clauses (should be ambiguous), or a flag is missing. Do NOT flag a field just because source_quote does not include a separate quote for it; source_quote need not contain a quote for every field.",
+    "- Warnings: any plain_language_warning claiming something the document does not support.",
+    "",
+    'Reply with ONLY a JSON object: {"issues":[{"fee_name":"...","field":"...","problem":"...","fix":"..."}],"missed_fees":["..."],"invented_fees":["..."]}. Use empty arrays if there is nothing to fix.'
+  ].join("\n");
+
+  var REVISE_INTRO = [
+    "You are revising a draft fee extraction using the reviewer's critique. Apply every correct fix, re-reading the agreement to confirm each change. Follow these rules exactly:",
+    "",
+    RULES,
+    "",
+    "Return ONLY the corrected JSON array of fee objects in the exact schema, and nothing else."
+  ].join("\n");
+
+  var GATE = "You are checking whether a block of text can be used for credit card fee extraction. Decide whether it is a readable credit card agreement or account-opening disclosure, the kind that lists APRs, fees, and terms. It is NOT usable if the text is garbled or scrambled, for example pulled from a scanned or watermarked PDF with words broken up, interrupted by stray characters, or out of reading order; if it is a different kind of document such as a recipe, article, or unrelated form; or if it is mostly empty. Reply with ONLY a JSON object: {\"usable\": true or false, \"reason\": \"one short sentence\"}.\n\nTEXT:\n";
+
+  // ---- element refs ----
+  var $ = function (id) { return document.getElementById(id); };
+  var sampleFn = null, controller = null, docText = "", draft = null, critique = null, finalFees = null;
+
+  // ---- pdf.js ----
+  if (window.pdfjsLib) {
+    try { pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; } catch (e) {}
+  }
+
+  async function pdfToText(arrayBuffer) {
+    var pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    var out = [];
+    for (var p = 1; p <= pdf.numPages; p++) {
+      var page = await pdf.getPage(p);
+      var tc = await page.getTextContent();
+      var line = "", lastY = null, parts = [];
+      tc.items.forEach(function (it) {
+        if (!("str" in it)) return;
+        var y = it.transform[5];
+        if (lastY !== null && Math.abs(y - lastY) > 2) { parts.push(line); line = ""; }
+        line += it.str + (it.hasEOL ? "" : " ");
+        lastY = y;
+      });
+      if (line) parts.push(line);
+      out.push(parts.join("\n"));
+    }
+    return out.join("\n");
+  }
+
+  // ---- UI helpers ----
+  function show(id) { $(id).hidden = false; }
+  function hide(id) { $(id).hidden = true; }
+  function setStep(n, state, text) {
+    var el = $("s" + n);
+    el.className = "step" + (state ? " " + state : "");
+    el.querySelector(".v").innerHTML = (state === "active" ? '<span class="spin"></span> ' : "") + (text || "");
+  }
+  function sevRank(s) { return s === "high" ? 0 : s === "med" ? 1 : 2; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+  function val(f, k) { var v = f && f[k]; return v && typeof v === "object" ? v.value : v; }
+  function st(f, k) { var v = f && f[k]; return v && typeof v === "object" ? v.state : null; }
+
+  function enableRunIfReady() {
+    var hasFile = !!docText || ($("paste").value.trim().length > 200);
+    $("run").disabled = !hasFile;
+  }
+
+  // ---- intake wiring ----
+  var drop = $("drop"), fileInput = $("file");
+  drop.addEventListener("click", function () { fileInput.click(); });
+  drop.addEventListener("dragover", function (e) { e.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", function () { drop.classList.remove("over"); });
+  drop.addEventListener("drop", function (e) {
+    e.preventDefault(); drop.classList.remove("over");
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener("change", function () { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+  $("pastebtn").addEventListener("click", function () { var t = $("paste"); t.hidden = !t.hidden; if (!t.hidden) t.focus(); });
+  $("paste").addEventListener("input", function () { docText = ""; $("fname").hidden = true; enableRunIfReady(); });
+
+  function setFname(cls, msg) { var el = $("fname"); el.hidden = false; el.className = "filename" + (cls ? " " + cls : ""); el.textContent = msg; }
+
+  // Cheap first gate: a scanned or image-only PDF yields almost no text, so
+  // block it before any model call. Scrambled-but-present text (e.g. a
+  // watermarked PDF) is caught by the readability gate at run time instead.
+  async function handleFile(file) {
+    setFname("", "Reading " + file.name + " ...");
+    try {
+      var buf = await file.arrayBuffer();
+      var text = await pdfToText(buf);
+      if (text.replace(/\s/g, "").length < 400) {
+        docText = "";
+        setFname("err", file.name + ": almost no readable text found. This PDF looks scanned or image-only. Paste the agreement text instead.");
+      } else {
+        docText = text;
+        setFname("", file.name + " · " + text.length.toLocaleString() + " characters read");
+      }
+    } catch (e) {
+      docText = "";
+      setFname("err", "Could not read that PDF. Try pasting the agreement text instead.");
+    }
+    enableRunIfReady();
+  }
+
+  // ---- the loop ----
+  async function ask(input, label, tier) {
+    return await sampleFn.json(input, {
+      modelTier: tier || "default",
+      signal: controller.signal,
+      onText: function (u) { $("phase").textContent = label + " (" + u.text.length.toLocaleString() + " chars)"; }
+    });
+  }
+
+  function errCode(e) {
+    var m = {
+      not_granted: "This view is not allowed to use Claude. Open the artifact from your Claude account and allow it.",
+      rate_limited: "Claude is rate limited right now. Wait a moment and try again.",
+      invalid_json: "The model's reply was not valid JSON. Try again.",
+      refused: "Claude declined to process this input.",
+      prompt_too_large: "This agreement is too long to send in one piece. Paste a shorter excerpt.",
+      cancelled: "Stopped."
+    };
+    return m[e && e.code] || ("Something went wrong (" + (e && e.code ? e.code : "unknown") + "). Try again.");
+  }
+
+  async function runLoop() {
+    var text = docText || $("paste").value.trim();
+    if (!text) return;
+    if (text.length > 240000) text = text.slice(0, 240000);
+
+    hide("intake"); hide("results"); show("progress");
+    $("err").hidden = true;
+    controller = new AbortController();
+    setStep(1, "", "waiting"); setStep(2, "", "waiting"); setStep(3, "", "waiting");
+    $("phase").textContent = "Checking the document...";
+
+    try {
+      // 0. readability gate: is this a usable, non-garbled agreement?
+      try {
+        var gate = await ask(GATE + text.slice(0, 8000), "Checking the document", "quick");
+        if (gate && gate.usable === false) {
+          hide("progress"); show("intake");
+          docText = "";
+          setFname("lowq", "This does not look like a readable credit card agreement" + (gate.reason ? " (" + gate.reason + ")" : "") + ". If it is one, the PDF text may be garbled, so paste the agreement text instead.");
+          enableRunIfReady();
+          return;
+        }
+      } catch (ge) {
+        if (ge && ge.code === "cancelled") { show("intake"); hide("progress"); return; }
+        // gate failed for a non-content reason: fail open and continue
+      }
+
+      // 1. extract
+      setStep(1, "active", "reading the agreement");
+      draft = await ask(EXTRACT + text, "Extracting");
+      if (!Array.isArray(draft)) throw { code: "invalid_json" };
+      setStep(1, "done", draft.length + " fees drafted");
+
+      // 2. critique
+      setStep(2, "active", "checking its own work");
+      critique = await ask(CRITIQUE_INTRO + "\n\nAGREEMENT:\n" + text + "\n\nDRAFT (JSON):\n" + JSON.stringify(draft), "Reviewing");
+      var nIssues = ((critique && critique.issues) || []).length + ((critique && critique.missed_fees) || []).length + ((critique && critique.invented_fees) || []).length;
+      setStep(2, "done", nIssues === 0 ? "no problems found" : nIssues + " issue" + (nIssues === 1 ? "" : "s") + " found");
+
+      // 3. revise
+      setStep(3, "active", "applying fixes");
+      if (nIssues === 0) {
+        finalFees = draft;
+      } else {
+        finalFees = await ask(
+          REVISE_INTRO + "\n\nAGREEMENT:\n" + text +
+          "\n\nDRAFT (JSON):\n" + JSON.stringify(draft) +
+          "\n\nREVIEWER CRITIQUE (JSON):\n" + JSON.stringify(critique),
+          "Revising");
+        if (!Array.isArray(finalFees)) finalFees = draft;
+      }
+      setStep(3, "done", finalFees.length + " fees final");
+      render();
+    } catch (e) {
+      if (e && e.code === "cancelled") { show("intake"); hide("progress"); return; }
+      $("err").hidden = false;
+      $("err").textContent = errCode(e);
+    }
+  }
+
+  // ---- render ----
+  function render() {
+    hide("progress"); show("results");
+    var fees = finalFees.slice().sort(function (a, b) { return sevRank(a.severity) - sevRank(b.severity); });
+
+    var high = fees.filter(function (f) { return f.severity === "high"; }).length;
+    var flagged = fees.filter(function (f) {
+      return ["fee_name", "amount", "trigger", "plain_language_warning", "source_quote"].some(function (k) {
+        var s = st(f, k); return s === "unstated" || s === "ambiguous";
+      });
+    }).length;
+    $("t-total").textContent = fees.length;
+    $("t-high").textContent = high;
+    $("t-flag").textContent = flagged;
+
+    // self-review panel
+    var rb = $("review-body"), html = "";
+    var issues = (critique && critique.issues) || [];
+    var missed = (critique && critique.missed_fees) || [];
+    var invented = (critique && critique.invented_fees) || [];
+    var delta = finalFees.length - (draft ? draft.length : finalFees.length);
+    if (issues.length === 0 && missed.length === 0 && invented.length === 0) {
+      html = '<p class="muted">The reviewer found no problems in the first draft. The report below is the draft, unchanged.</p>';
+    } else {
+      html = '<p>First draft had <b>' + (draft ? draft.length : "?") + '</b> fees; after review the report has <b>' + finalFees.length + '</b>' +
+             (delta !== 0 ? ' (' + (delta > 0 ? "+" : "") + delta + ')' : '') + '.</p>';
+      missed.forEach(function (m) { html += '<div class="fix"><span class="what">Added a missed fee:</span> ' + esc(m) + '</div>'; });
+      invented.forEach(function (m) { html += '<div class="fix"><span class="what">Removed an unsupported fee:</span> ' + esc(m) + '</div>'; });
+      issues.forEach(function (it) {
+        html += '<div class="fix"><span class="what">' + esc(it.fee_name || "Fee") + (it.field ? " · " + esc(it.field) : "") + ':</span> ' + esc(it.problem || "") +
+                (it.fix ? ' <span class="muted">Fix: ' + esc(it.fix) + '</span>' : '') + '</div>';
+      });
+    }
+    rb.innerHTML = html;
+
+    // fee cards
+    var out = "";
+    fees.forEach(function (f, i) {
+      var sev = (f.severity || "med").toLowerCase();
+      var quotes = (f.source_quote && f.source_quote.quotes) || [];
+      var states = [];
+      [["fee_name", "name"], ["amount", "amount"], ["trigger", "trigger"], ["plain_language_warning", "warning"], ["source_quote", "source"]].forEach(function (p) {
+        var s = st(f, p[0]); if (s === "unstated" || s === "ambiguous") states.push(s + ": " + p[1]);
+      });
+      var evidence =
+        '<div class="field"><span class="lab">When it hits: </span>' + esc(val(f, "trigger")) + '</div>' +
+        (quotes.length ? '<blockquote>' + quotes.map(function (q) { return "<p>" + esc(q) + "</p>"; }).join("") + '</blockquote>' : '') +
+        (states.length ? '<div class="states">' + states.map(function (s) { return '<span class="chip">' + esc(s) + '</span>'; }).join("") + '</div>' : '');
+      out += '<div class="fee ' + sev + '">' +
+        '<div class="fee-head">' +
+          '<span class="badge ' + sev + '">' + esc(sev) + '</span>' +
+          '<h3 class="fee-name">' + esc(val(f, "fee_name")) + '</h3>' +
+          (states.length ? '<span class="flagmark" title="This fee has unstated or ambiguous details">flagged</span>' : '') +
+          '<span class="amount">' + esc(val(f, "amount")) + '</span>' +
+        '</div>' +
+        '<p class="warn">' + esc(val(f, "plain_language_warning")) + '</p>' +
+        '<details class="evidence"' + (sev === "high" ? " open" : "") + '>' +
+          '<summary><span class="caret">▸</span><span class="ev-label"></span></summary>' +
+          '<div class="ev-body">' + evidence + '</div>' +
+        '</details>' +
+        '<div class="cardfb" data-fee="' + i + '">' +
+          '<span class="cardfb-label">In your agreement?</span>' +
+          '<button type="button" data-v="yes">Yes</button>' +
+          '<button type="button" data-v="no">No</button>' +
+        '</div>' +
+      '</div>';
+    });
+    $("fees").innerHTML = out;
+    resetFeedback();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ---- controls ----
+  $("run").addEventListener("click", runLoop);
+  $("stop").addEventListener("click", function () { if (controller) controller.abort(); });
+  $("again").addEventListener("click", function () {
+    hide("results"); show("intake");
+    docText = ""; $("paste").value = ""; $("fname").hidden = true; $("file").value = ""; enableRunIfReady();
+  });
+  function setAll(open) { Array.prototype.forEach.call(document.querySelectorAll("#fees details.evidence"), function (d) { d.open = open; }); }
+  $("expandAll").addEventListener("click", function () { setAll(true); });
+  $("collapseAll").addEventListener("click", function () { setAll(false); });
+
+  // ---- feedback (prototype: captured in memory; production would send to analytics) ----
+  var feedback = { useful: null, nps: null, cards: {} };
+  function markSel(container, btn) { Array.prototype.forEach.call(container.querySelectorAll("button"), function (b) { b.classList.toggle("sel", b === btn); }); }
+  function resetFeedback() {
+    feedback = { useful: null, nps: null, cards: {} };
+    var nps = $("fb-nps"); nps.innerHTML = "";
+    for (var n = 0; n <= 10; n++) { var b = document.createElement("button"); b.type = "button"; b.setAttribute("data-v", n); b.textContent = n; nps.appendChild(b); }
+    Array.prototype.forEach.call($("fb-useful").querySelectorAll("button"), function (x) { x.classList.remove("sel"); });
+    $("fb-thanks").hidden = true;
+  }
+  $("fb-useful").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; feedback.useful = b.getAttribute("data-v"); markSel(this, b); $("fb-thanks").hidden = false; });
+  $("fb-nps").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; feedback.nps = +b.getAttribute("data-v"); markSel(this, b); $("fb-thanks").hidden = false; });
+  $("fees").addEventListener("click", function (e) { var b = e.target.closest(".cardfb button"); if (!b) return; var wrap = b.parentNode; feedback.cards[wrap.getAttribute("data-fee")] = b.getAttribute("data-v"); markSel(wrap, b); });
+
+  // ---- boot ----
+  (async function () {
+    var c = (window.claude && window.claude.use) ? await window.claude.use("sample") : null;
+    if (!c) { show("unavailable"); return; }
+    sampleFn = c;
+    show("intake");
+    enableRunIfReady();
+  })();
+})();
+</script>

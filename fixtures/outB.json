@@ -1,0 +1,18 @@
+[
+  {
+    "fee_name": {"value": "Annual Percentage Rate (APR) for Purchases", "state": "grounded"},
+    "amount": {"value": "21.99%", "state": "grounded"},
+    "trigger": {"value": "The rate applied to purchase balances carried on the account. The agreement does not state a grace period for purchases.", "state": "grounded"},
+    "plain_language_warning": {"value": "Purchase balances you carry month to month accrue interest at 21.99%.", "state": "grounded"},
+    "source_quote": {"quotes": ["Annual Percentage Rate (APR) for Purchases: 21.99%."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Penalty APR", "state": "grounded"},
+    "amount": {"value": "Up to 29.99%. This APR will vary with the market based on the Prime Rate.", "state": "grounded"},
+    "trigger": {"value": "Applied if you make a late payment, specifically if the total minimum payment due is not received by the due date two or more times during any 12 consecutive billing cycles. It may apply to all new transactions and may remain in effect indefinitely. No grace period applies once in effect.", "state": "grounded"},
+    "plain_language_warning": {"value": "Paying late can raise your rate to as much as 29.99%. Missing the minimum payment twice in any 12 billing cycles triggers it, it can apply to all new transactions, and it can stay in effect indefinitely.", "state": "grounded"},
+    "source_quote": {"quotes": ["Penalty APR: Up to 29.99%. This APR will vary with the market based on the Prime Rate.", "This APR may be applied to your account if you make a late payment. A Penalty APR may be applied if we do not receive the total minimum payment due on your account by the payment due date two or more times during any 12 consecutive billing cycles. Once the Penalty APR is in effect, it may apply to all new transactions and may remain in effect indefinitely."], "state": "grounded"},
+    "severity": "high"
+  }
+]

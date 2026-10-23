@@ -1,0 +1,26 @@
+[
+  {
+    "fee_name": {"value": "Annual Percentage Rate (APR) for Purchases", "state": "grounded"},
+    "amount": {"value": "22.99%", "state": "grounded"},
+    "trigger": {"value": "Interest charged on balances for purchases.", "state": "grounded"},
+    "plain_language_warning": {"value": "Purchases carry a 22.99% APR, so any balance you carry past the due date will accrue interest at that rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["Annual Percentage Rate (APR) for Purchases: 22.99%."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "up to $40", "state": "grounded"},
+    "trigger": {"value": "Charged if the issuer does not receive your minimum payment by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing your minimum payment by the due date can cost you up to $40, a fee that is easy to trigger if you forget a payment.", "state": "grounded"},
+    "source_quote": {"quotes": ["We will charge a late payment fee of up to $40 if we do not receive your minimum payment by the due date."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Cash Advance Fee", "state": "grounded"},
+    "amount": {"value": "Either $10 or 5% of the amount of each cash advance, whichever is greater.", "state": "grounded"},
+    "trigger": {"value": "Charged on each cash advance you take.", "state": "grounded"},
+    "plain_language_warning": {"value": "Each cash advance costs at least $10, and 5% once the advance exceeds $200, so pulling cash is an expensive way to borrow.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $10 or 5% of the amount of each cash advance, whichever is greater."], "state": "grounded"},
+    "severity": "med"
+  }
+]

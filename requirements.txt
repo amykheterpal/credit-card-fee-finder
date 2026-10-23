@@ -1,0 +1,8 @@
+# The eval harness (eval_harness.py) and the judge scorer (score_judge.py)
+# use only the Python standard library. Nothing to install to reproduce the
+# scored results.
+#
+# Running the judge over fresh fields (llm_judge.py run) calls the Anthropic
+# API and needs the SDK below. The API key is read from the ANTHROPIC_API_KEY
+# environment variable and is never stored in the repo.
+anthropic>=0.40

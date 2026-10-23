@@ -1,0 +1,130 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "36.0%", "state": "grounded"},
+    "trigger": {"value": "Applies to purchase balances carried past the due date. No interest on purchases if you pay your entire balance in full by the due date each month, which is at least 27 days after the close of each billing cycle.", "state": "grounded"},
+    "plain_language_warning": {"value": "A 36.0% purchase rate is at the very top of the market, so any balance you carry month to month gets expensive fast. You only avoid it by paying the full balance by each due date.", "state": "grounded"},
+    "source_quote": {"quotes": ["36.0%", "We will not charge you any interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "36.0%", "state": "grounded"},
+    "trigger": {"value": "Applies to cash advances. Interest accrues from the transaction date with no grace period, even if you pay the balance in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "A cash advance starts racking up interest at 36.0% the moment you take it, with no grace period to pay it off interest-free. Paying in full by the due date does not save you here.", "state": "grounded"},
+    "source_quote": {"quotes": ["36.0%", "We will begin charging interest on cash advances on the transaction date.", "There is no grace period for transactions that post to your Credit Account as Cash Advances."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Minimum Interest Charge", "state": "grounded"},
+    "amount": {"value": "No less than $1.00 for each billing cycle in which an interest charge based on a periodic rate is imposed; during the first 12 months any interest assessed equals the actual accrued interest.", "state": "grounded"},
+    "trigger": {"value": "Charged in any billing cycle where you are assessed interest and the periodic-rate interest would be under $1.00, as a floor. Does not apply during the first 12 months the account is open.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you carry a small amount of interest, it is rounded up to at least $1.00 per cycle. The extra cost is tiny and it does not apply in your first year.", "state": "grounded"},
+    "source_quote": {"quotes": ["If you are charged interest, the charge will be no less than $1.00.", "During the first 12 months your Credit Account is open, any interest assessed on the Credit Account will be equal to the actual accrued interest."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Program Fee", "state": "grounded"},
+    "amount": {"value": "$95.00, one-time, paid in full before the account is opened", "state": "grounded"},
+    "trigger": {"value": "A one-time up-front charge required before the Credit Account is opened. It is deducted from your opening credit, so on a $300 limit your initial available credit is only about $225.", "state": "grounded"},
+    "plain_language_warning": {"value": "You pay $95 before the card is even active, and it eats into your credit line. On a $300 limit that leaves you only about $225 to spend from day one.", "state": "grounded"},
+    "source_quote": {"quotes": ["We require a one-time up front Program Fee of $95.00 to be paid in full before the Credit Account is opened to offset the risk associated with the Credit Account.", "Based on your initial credit limit of $300.00, your initial available credit will be only about $225.00."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Annual Fee", "state": "grounded"},
+    "amount": {"value": "$75.00 for the first year, then $45.00 for each subsequent year", "state": "grounded"},
+    "trigger": {"value": "Charged once the account is opened and again in about the same billing cycle each following year, simply for having the card.", "state": "grounded"},
+    "plain_language_warning": {"value": "You are charged $75 the first year and $45 every year after just to keep the card. On a $300 credit line that is a large recurring bite before you spend a dollar.", "state": "grounded"},
+    "source_quote": {"quotes": ["We impose an Annual Fee on your Credit Account of $75.00 for the first year, and $45.00 for each subsequent year. The Annual Fee will be charged once the Credit Account is opened, and in about the same Billing Cycle of each following year."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Monthly Fee", "state": "grounded"},
+    "amount": {"value": "$0.00 per month for the first year (introductory), then $6.25 per month ($75.00 annually) thereafter; billed until the account is closed and the balance is $20.00 or less", "state": "grounded"},
+    "trigger": {"value": "No monthly fee during the introductory first year, then $6.25 every month afterward for having the account open. It keeps being billed until the account is closed and the balance is $20 or less.", "state": "grounded"},
+    "plain_language_warning": {"value": "The monthly fee is free the first year, then quietly starts at $6.25 a month, which is $75 a year, and keeps being charged until you close the account and nearly zero out the balance.", "state": "grounded"},
+    "source_quote": {"quotes": ["Your Credit Account will be charged a Monthly Fee of $0.00 for the first year (introductory) and $6.25 per month ($75.00 annually) each month thereafter. This fee will be billed until your Credit Account is closed and the balance is $20.00 or less."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Cash Advance Fee", "state": "grounded"},
+    "amount": {"value": "$8.00 or 5% of the amount of each cash advance, whichever is greater", "state": "grounded"},
+    "trigger": {"value": "Charged on each cash advance, in addition to the interest that accrues on it from day one.", "state": "grounded"},
+    "plain_language_warning": {"value": "Every cash advance costs an extra $8 or 5%, whichever is more, on top of interest that starts immediately. Taking out cash is one of the pricier ways to use this card.", "state": "grounded"},
+    "source_quote": {"quotes": ["In addition to the periodic INTEREST CHARGE on Cash Advances, there is an additional fee of $8.00 or 5% of the amount of each Cash Advance, whichever is greater."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Foreign Currency Transaction Fee", "state": "grounded"},
+    "amount": {"value": "3% of the transaction amount in U.S. dollars", "state": "grounded"},
+    "trigger": {"value": "Charged on each transaction made in a foreign currency, calculated on the U.S. dollar amount.", "state": "grounded"},
+    "plain_language_warning": {"value": "Any purchase in a foreign currency adds 3% in U.S. dollars. It is easy to avoid if you do not spend abroad, but it scales with the size of the purchase.", "state": "grounded"},
+    "source_quote": {"quotes": ["3% of the Transaction Amount in U.S. dollars."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "$28.00 the first time; $39.00 each time if you are late again in any of the next six billing cycles; never more than the Minimum Payment plus Past Due Amount for that cycle", "state": "grounded"},
+    "trigger": {"value": "Charged when you do not pay at least the Minimum Payment plus any Past Due Amount by 5 pm Central Time on your Payment Due Date. The fee rises to $39 if you are late again within six billing cycles.", "state": "grounded"},
+    "plain_language_warning": {"value": "Miss a payment and you are charged $28, rising to $39 if it happens again within six months. The summary box only shows the top $39 figure, not the escalation.", "state": "grounded"},
+    "source_quote": {"quotes": ["The first time you do not pay at least the Minimum Payment plus Past Due Amount by the cutoff time on your Payment Due Date, we will charge a Late Payment Fee of $28.00. If you do not pay at least this amount on time again in the next six billing cycles, we will charge a Late Payment Fee of $39.00 each time. The Late Payment Fee will never be more than the Minimum Payment plus Past Due Amount due in that Billing Cycle."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Return Item Charge", "state": "grounded"},
+    "amount": {"value": "Up to $28.00 the first time; up to $39.00 if another payment is returned in the next six billing cycles", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment you make is returned unpaid. It can be charged even if the item is re-presented and then paid. The amount rises to up to $39 on a second return within six billing cycles.", "state": "grounded"},
+    "plain_language_warning": {"value": "A bounced payment costs up to $28, rising to up to $39 if it happens again within six months, and it can still be charged even if the payment later clears on re-presentment.", "state": "grounded"},
+    "source_quote": {"quotes": ["If a payment you make is returned unpaid, we will charge you a Return Item Charge of up to $28.00. If another payment is returned in the next six billing cycles, we will charge a Return Item Charge of up to $39.00. The Return Item Charge may be imposed even if we elect to re-present the item and it is paid upon our re-presentment."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Additional Card Fee", "state": "grounded"},
+    "amount": {"value": "$29.00 annually for each additional card", "state": "grounded"},
+    "trigger": {"value": "Charged each year for each additional card you authorize us to issue on the account.", "state": "grounded"},
+    "plain_language_warning": {"value": "Adding a second card to the account costs $29 every year per card. It only applies if you request one.", "state": "grounded"},
+    "source_quote": {"quotes": ["If you authorize us to issue an additional Card on the Credit Account there is an Additional Card Fee of $29.00 imposed annually for each additional Card."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Credit Limit Increase Fee", "state": "grounded"},
+    "amount": {"value": "25% of the amount of the credit limit increase (for example, a $25.00 fee on a $100.00 increase)", "state": "grounded"},
+    "trigger": {"value": "Automatically assessed each time you are approved for an unsecured credit limit increase, which can happen as soon as the account has been open 13 months. You do not have to request the increase for the fee to apply.", "state": "grounded"},
+    "plain_language_warning": {"value": "Every credit line increase costs 25% of the increase, and it is charged automatically on approval, possibly as early as month 13. A $100 bump in your limit costs you $25.", "state": "grounded"},
+    "source_quote": {"quotes": ["Each time your Credit Account is eligible for and approved for an unsecured credit limit increase, a Credit Limit Increase Fee in the amount of 25% of the amount of the credit limit increase will be assessed to your Credit Account.", "This fee is automatically assessed upon approval of your credit limit increase, which could be as soon as your Credit Account has been open for 13 months."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Copying Fee", "state": "grounded"},
+    "amount": {"value": "$3.00 for each copy", "state": "grounded"},
+    "trigger": {"value": "Charged when you request a duplicate of a sales draft, statement, or other document.", "state": "grounded"},
+    "plain_language_warning": {"value": "Requesting a duplicate statement or document costs $3 per copy. Minor and easy to avoid by using online copies.", "state": "grounded"},
+    "source_quote": {"quotes": ["If you request a duplicate of any sales draft, Statement, or other document, we will charge you $3.00 for each copy we provide."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Express Delivery Fee", "state": "grounded"},
+    "amount": {"value": "$35.00", "state": "grounded"},
+    "trigger": {"value": "Charged for express delivery of your card, available only for lost, stolen, or replacement cards.", "state": "grounded"},
+    "plain_language_warning": {"value": "Having a replacement card rushed to you costs $35. It only applies if you ask for express delivery of a lost, stolen, or replacement card.", "state": "grounded"},
+    "source_quote": {"quotes": ["We impose a $35.00 fee for the express delivery of your Card. This service is only available for lost, stolen, or replacement Cards."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Wire Transfer Fee", "state": "grounded"},
+    "amount": {"value": "$5.00 per transaction", "state": "grounded"},
+    "trigger": {"value": "Charged for each wire transfer transaction.", "state": "grounded"},
+    "plain_language_warning": {"value": "Paying or transacting by wire costs $5 each time. Small, and only applies if you choose wire transfers.", "state": "grounded"},
+    "source_quote": {"quotes": ["$5.00 per Transaction."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Collection Costs", "state": "grounded"},
+    "amount": {"value": "", "state": "unstated"},
+    "trigger": {"value": "If you default, you must pay all court and collection costs, including reasonable attorneys' fees, the cost of placing your account in the Warning Bulletin, and the cost of confiscating your card, to the extent permitted by law.", "state": "grounded"},
+    "plain_language_warning": {"value": "If your account goes into default, you can be billed for the lender's court costs, collection costs, and attorneys' fees. No dollar amount is stated, so the total is open-ended.", "state": "grounded"},
+    "source_quote": {"quotes": ["To the extent permitted by law, you must pay all court and collection costs, including reasonable attorneys' fees, the costs of placing your Credit Account in the Warning Bulletin and the costs of confiscating your Card, that we incur as a result of your default."], "state": "grounded"},
+    "severity": "med"
+  }
+]

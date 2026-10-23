@@ -1,0 +1,42 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "19.99%", "state": "grounded"},
+    "trigger": {"value": "Interest charged at this rate on purchase balances.", "state": "grounded"},
+    "plain_language_warning": {"value": "Purchases carry a 19.99% APR, charged on any balance you carry on the card.", "state": "grounded"},
+    "source_quote": {"quotes": ["Annual Percentage Rate (APR) for Purchases: 19.99%."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "Not stated in the document.", "state": "unstated"},
+    "trigger": {"value": "Interest on cash advances accrues from day one, with no grace period, even if you pay the balance in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances start accruing interest immediately, with no grace period even if you pay in full by the due date. The agreement does not state the cash advance interest rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["You cannot avoid interest charges on cash advances, balance transfers and transaction fees."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "Not stated in the document.", "state": "unstated"},
+    "trigger": {"value": "Interest on balance transfers accrues from day one, with no grace period, even if you pay the balance in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Balance transfers start accruing interest immediately, with no grace period even if you pay in full by the due date. The agreement does not state the balance transfer interest rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["You cannot avoid interest charges on cash advances, balance transfers and transaction fees."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance Fee", "state": "grounded"},
+    "amount": {"value": "Either $10 or 5% of the amount of each cash advance, whichever is greater.", "state": "grounded"},
+    "trigger": {"value": "Charged each time you take a cash advance.", "state": "grounded"},
+    "plain_language_warning": {"value": "Each cash advance costs $10 or 5% of the amount taken, whichever is greater, so larger advances cost more. This fee is separate from the interest that starts accruing right away.", "state": "grounded"},
+    "source_quote": {"quotes": ["Cash Advance Fee: Either $10 or 5% of the amount of each cash advance, whichever is greater."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Return Payment Fee", "state": "grounded"},
+    "amount": {"value": "Up to $40", "state": "grounded"},
+    "trigger": {"value": "Charged if a payment you make is returned unpaid.", "state": "grounded"},
+    "plain_language_warning": {"value": "If a payment you make is returned unpaid, for example because of insufficient funds, you can be charged up to $40.", "state": "grounded"},
+    "source_quote": {"quotes": ["Return Payment Fee: Up to $40 if a payment is returned unpaid."], "state": "grounded"},
+    "severity": "high"
+  }
+]

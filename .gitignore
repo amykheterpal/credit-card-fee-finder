@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Secrets (never commit a key; the judge reads ANTHROPIC_API_KEY from the env)
+.env
+*.key

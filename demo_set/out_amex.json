@@ -1,0 +1,98 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "Variable APR of Prime Rate + 12.74% to Prime Rate + 21.74%; variable APRs will not exceed 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Charged on purchase balances you carry. There is a grace period: no interest on purchases if you pay your entire balance (or balance adjusted for plans) by the due date. If you are not in an Interest Free Period, interest is charged on purchases from the transaction date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Carrying a purchase balance costs a variable rate of Prime + 12.74% to +21.74% (capped at 29.99%). You avoid interest only by paying your entire statement balance by the due date every month; once you carry a balance, interest is charged back to each purchase's transaction date.", "state": "grounded"},
+    "source_quote": {"quotes": ["12.74%", "21.74%", "Prime Rate +", "Variable APRs will not exceed 29.99%.", "We will not charge you interest on purchases if you pay each month your entire balance (or, if you have a plan outstanding, your balance adjusted for plans) by the due date.", "When your account is not in an Interest Free Period, we charge interest on purchases from the date of the transaction."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "Variable APR of Prime Rate + 12.74% to Prime Rate + 21.74%; variable APRs will not exceed 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Charged on amounts you transfer from another credit card. Interest accrues from the transaction date with no interest-free grace period, even if you pay in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "A balance you transfer is charged a variable Prime + 12.74% to +21.74% (up to 29.99%) starting from the transaction date, with no grace period, so interest begins immediately even if you pay on time.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 12.74% to Prime Rate + 21.74% for any balance transfer requests we may accept.", "We will begin charging interest on cash advances and balance transfers on the transaction date.", "Balance Transfers and Cash Advances will be charged interest from the date of the transaction and do not have an Interest Free Period."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "Variable APR of Prime Rate + 21.99%; variable APRs will not exceed 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Charged on cash advances (cash or cash equivalents). Interest accrues from the transaction date with no interest-free grace period, even if you pay in full by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances carry a high variable rate of Prime + 21.99% (up to the 29.99% cap) that starts accruing from the transaction date with no grace period, so there is no way to avoid interest by paying in full.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 21.99%", "We will begin charging interest on cash advances and balance transfers on the transaction date.", "Balance Transfers and Cash Advances will be charged interest from the date of the transaction and do not have an Interest Free Period."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Penalty APR", "state": "grounded"},
+    "amount": {"value": "Variable APR of Prime Rate + 26.74%; variable APRs will not exceed 29.99%.", "state": "grounded"},
+    "trigger": {"value": "Can be applied to new transactions if you do not pay at least the Minimum Payment Due by the Payment Due Date, or your payment is returned by your bank. Once applied, it lasts at least 6 months and continues until you make timely payments with no returned payments during the 6 months being reviewed.", "state": "grounded"},
+    "plain_language_warning": {"value": "Miss your minimum payment or have a payment returned and the rate on new transactions can jump to a variable Prime + 26.74% (up to 29.99%). It applies for at least 6 months and only ends after 6 straight months of on-time, non-returned payments.", "state": "grounded"},
+    "source_quote": {"quotes": ["Prime Rate + 26.74%", "We have the right to apply the Penalty APR to new Transactions if:", "you do not pay at least the Minimum Payment Due by the Payment Due Date; or", "your payment is returned by your bank", "If the penalty APR is applied, it will apply for at least 6 months.", "The penalty APR will continue to apply until you have made timely payments with no returned payments during the 6 months being reviewed."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Plan Fee (Fixed Finance Charge)", "state": "grounded"},
+    "amount": {"value": "Monthly fee of up to 1.33% of each purchase or amount placed into a plan, based on the plan duration, the APR that would otherwise apply, and other factors; charged each month the plan is active. The dollar amount is disclosed before you set up a plan.", "state": "grounded"},
+    "trigger": {"value": "Incurred only if you choose to move a qualifying purchase or amount into a Plan It installment plan; charged each month a plan is active instead of the purchase APR.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you move a purchase into a Plan It installment plan, you pay a monthly fee of up to 1.33% of the amount every month the plan is active instead of the purchase APR. It is a fixed finance charge; the dollar amount is disclosed before you set up the plan.", "state": "grounded"},
+    "source_quote": {"quotes": ["Monthly, up to 1.33% of each purchase or amount placed into a plan based on the plan duration, the APR that would otherwise apply to the purchase or amount, and other factors.", "This fee is a fixed finance charge that will be charged each month that a plan is active.", "When you set up a plan, the purchases or amount will be added to a plan balance and will be subject to a plan fee instead of the APR for purchases."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Balance Transfer (Transaction Fee)", "state": "grounded"},
+    "amount": {"value": "3% of the transaction, with a minimum of $5 (either $5 or 3% of each transfer, whichever is greater). A different fee may apply if stated in a promotional offer or at the time of a transaction. This fee is a finance charge added to the balance transfer balance.", "state": "grounded"},
+    "trigger": {"value": "Charged each time you make a balance transfer.", "state": "grounded"},
+    "plain_language_warning": {"value": "Each balance transfer costs 3% of the amount, with a $5 minimum. It is a finance charge added to your transferred balance, so it starts accruing interest along with the transfer.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $5 or 3% of the amount of each transfer, whichever is greater.", "Balance Transfer: 3% of the transaction, with a minimum of $5. A different fee may apply if stated in a promotional offer or at the time of a transaction. This fee is a finance charge. We will add it to the same balance as the balance transfer."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance (Transaction Fee)", "state": "grounded"},
+    "amount": {"value": "5% of the cash advance transaction (including fees charged by the ATM operator, if any), with a minimum of $10 (either $10 or 5% of each cash advance, whichever is greater).", "state": "grounded"},
+    "trigger": {"value": "Charged each time you take a cash advance (cash or cash equivalents, including ATM withdrawals).", "state": "grounded"},
+    "plain_language_warning": {"value": "Every cash advance costs 5% of the amount (minimum $10), including any ATM operator fee. This stacks on top of the no-grace cash advance interest, making cash advances expensive from the first day.", "state": "grounded"},
+    "source_quote": {"quotes": ["Either $10 or 5% of the amount of each cash advance, whichever is greater.", "Cash Advance: 5% of the cash advance transaction (including fees charged by the ATM operator, if any), with a minimum of $10. We will add this fee to the Cash Advance balance."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Foreign Transaction", "state": "grounded"},
+    "amount": {"value": "2.7% of the converted U.S. dollar amount of each transaction.", "state": "grounded"},
+    "trigger": {"value": "Charged on any charge made in a foreign currency, after it is converted to U.S. dollars.", "state": "grounded"},
+    "plain_language_warning": {"value": "Any charge in a foreign currency adds 2.7% after it is converted to U.S. dollars, so purchases abroad or on foreign websites cost more than the sticker price.", "state": "grounded"},
+    "source_quote": {"quotes": ["2.7% of each transaction after conversion to US dollars.", "Foreign Transaction: 2.7% of the converted U.S. dollar amount."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment", "state": "grounded"},
+    "amount": {"value": "$29 if we do not receive the Minimum Payment Due by its Payment Due Date; $40 if this happens again within the next 6 billing periods. The late fee will not exceed the Minimum Payment Due on your prior billing statement.", "state": "grounded"},
+    "trigger": {"value": "Charged if the Minimum Payment Due is not received by its Payment Due Date.", "state": "grounded"},
+    "plain_language_warning": {"value": "Pay late and you are charged $29, rising to $40 if you are late again within the next 6 billing periods. The fee is capped at your prior statement's Minimum Payment Due.", "state": "grounded"},
+    "source_quote": {"quotes": ["Late Payment: Up to $40. If we do not receive the Minimum Payment Due by its Payment Due Date, the fee is $29. If this happens again within the next 6 billing periods, the fee is $40. However, the late fee on a billing statement will not exceed the Minimum Payment Due on your prior billing statement."], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Returned Payment", "state": "grounded"},
+    "amount": {"value": "$29 the first time a payment is returned unpaid; $40 if you do this again within the same billing period or the next 6 billing periods. The fee will not exceed the applicable Minimum Payment Due on your prior billing statement.", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment you make is returned unpaid the first time it is presented to your bank.", "state": "grounded"},
+    "plain_language_warning": {"value": "If a payment bounces, you are charged $29, rising to $40 if it happens again within the same or next 6 billing periods. The fee is capped at your prior statement's applicable Minimum Payment Due.", "state": "grounded"},
+    "source_quote": {"quotes": ["Returned Payment: Up to $40. If you make a payment that is returned unpaid the first time we present it to your bank, the fee is $29. If you do this again within the same billing period or the next 6 billing periods, the fee is $40. However, the returned payment fee on a billing statement will not exceed the applicable Minimum Payment Due on your prior billing statement."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Returned Check", "state": "grounded"},
+    "amount": {"value": "$38, plus the unpaid amount of the check.", "state": "grounded"},
+    "trigger": {"value": "Charged if you use your card to cash a check at one of the issuer's approved locations and the check is returned unpaid.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you use the card to cash a check at an approved location and the check bounces, you are charged $38 plus the unpaid check amount.", "state": "grounded"},
+    "source_quote": {"quotes": ["Returned Check: $38 if you use your card to cash a check at one of our approved locations and the check is returned unpaid. We will also charge you the unpaid amount."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Account Re-opening", "state": "grounded"},
+    "amount": {"value": "$25.", "state": "grounded"},
+    "trigger": {"value": "Charged if your Account is cancelled, you ask the issuer to re-open it, and they do so.", "state": "grounded"},
+    "plain_language_warning": {"value": "If your account is cancelled and you ask to have it reopened, you may be charged a $25 fee to restart it.", "state": "grounded"},
+    "source_quote": {"quotes": ["Account Re-opening: $25 if your Account is cancelled, you ask us to re-open it, and we do so.", "If your account is cancelled and we re-open it at your request, we may charge you a $25 fee."], "state": "grounded"},
+    "severity": "low"
+  }
+]

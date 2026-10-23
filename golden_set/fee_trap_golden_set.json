@@ -1,0 +1,1171 @@
+{
+  "golden_set_version": "1.9",
+  "created": "2026-10-03",
+  "description": "Hand-built golden set for the Fee-Trap Finder. Each card's entry list is the complete set of fees that card actually charges. Fees marked 'None' or absent from the agreement are deliberately excluded (inclusion rule). This set is the human-certified answer key used to calibrate the LLM-as-judge grader; it is not machine-generated.",
+  "schema": {
+    "fields": {
+      "fee_name": "value + state",
+      "amount": "value + state; free text capturing the full pricing rule, not necessarily a single number",
+      "trigger": "value + state; plain-language condition that causes the fee, including escape hatches",
+      "plain_language_warning": "value + state; consumer-facing caution, led by cost, carrying the non-obvious trap",
+      "source_quote": "quotes (list) + state; verbatim clauses, line breaks stripped; one when grounded, empty when unstated, multiple when ambiguous",
+      "severity": "high | med | low; a judgment against the severity rule, no grounding state"
+    },
+    "field_states": {
+      "note": "Every field, including fee_name, carries its own state, assessed independently.",
+      "grounded": "The field's value is supported by a verbatim quote or clause in the document.",
+      "unstated": "No quote or clause in the document supports a value; the value cannot be found (e.g. an amount deferred to a separate disclosure). The fee still gets a record; this field's value says it is not stated. Distinct from a 'None'/absent fee, which is excluded entirely (see inclusion_rule).",
+      "ambiguous": "The value cannot be determined because the document has competing clauses. Record the field and carry the competing clauses in source_quote rather than choosing one."
+    },
+    "severity_rule": {
+      "high": "Path 1 OR Path 2 (either sufficient). Path 1: easily triggered by normal card use or non-use, AND a meaningful dollar amount, AND not obvious from the marketing. Path 2: a large fixed charge relative to the credit line, OR an APR at or near the top of the market.",
+      "meaningful_amount": "A dollar amount a typical cardholder would find significant, not trivial. Anchors: $2 minimum interest is NOT meaningful; a $30-$41 late fee or a $95 program fee IS. Reference point is the cardholder's pocket, not a market comparison (market comparison is path 2's APR test). Absolute size lives in path 1's 'meaningful'; relative-to-credit-line size lives in path 2.",
+      "low": "BOTH (a) the amount is minor judged on realistic total impact, not the per-charge amount (a small charge that recurs every cycle is NOT minor, since its yearly total is noticeable), AND (b) the fee is rarely triggered or trivially avoided. A tiny but recurring fee is med, not low. APRs are NEVER low: an APR is high (top of market) or med otherwise.",
+      "med": "Residual by elimination: does not meet any high path AND does not meet the low floor. A real, noticeable fee that is neither severe nor trivial. NOT an 'unsure/cannot determine' bucket.",
+      "axes": "Severity (harm if the fee applies, drives ranking) and confidence (field state) are separate axes. A fee can be high severity AND ambiguous. Severity carries no grounding state."
+    },
+    "source_quote_model": {
+      "purpose": "Fee-level evidence: the verbatim clause(s) the consumer and the eval check the fee against.",
+      "not_per_field": "No field is mechanically tied one-to-one to source_quote; it need not contain a separate quote for every field. Each field's own state carries that field's grounding. In practice source_quote should hold the clauses behind the load-bearing facts (amount, trigger).",
+      "selection": "When several clauses support a field, use the most specific operative clause, not the summary-box version. When a field is ambiguous, carry the competing clauses.",
+      "warning_constraint": "The plain_language_warning must not state anything the DOCUMENT does not support (not merely 'anything in source_quote').",
+      "eval_consequence": "Groundedness = (a) every source_quote clause is verbatim in the document, AND (b) each grounded field is verified against the document, not against source_quote.",
+      "hygiene": "Never fabricate a quote. Strip PDF line breaks so quotes match verbatim. source_quote is list-valued."
+    }
+  },
+  "cards": [
+    {
+      "card_id": "synchrony",
+      "issuer": "Synchrony Bank",
+      "card_type": "store card",
+      "fees": [
+        {
+          "fee_name": {
+            "value": "Annual Percentage Rate (APR) for Purchases",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "34.99%",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Interest is charged on a purchase from the date of purchase until paid in full. Non-promotional purchases avoid interest in a billing cycle if you had no balance at the start of the cycle, or you paid the prior balance in full by the due date. Promotional purchases are always charged interest from the purchase date. If you did not pay the prior cycle's balance in full, interest is charged on the carried balance and on interest already accrued.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Pay your statement in full by the due date each month and you owe no interest on regular purchases. Carry any balance and it is charged 34.99 percent until fully paid. Note that a carried balance often includes unpaid interest, so you are charged interest on that interest too. Promotional purchases are the exception: they get no grace period and start accruing interest from the day you buy.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We charge interest on your purchases from the date you make the purchase until you pay the purchase in full.",
+              "We will not charge you interest during a billing cycle on any new non-promotional purchases if: 1. You had no balance at the start of the billing cycle; OR 2. You had a balance at the start of the billing cycle and you paid that balance in full by the due date in that billing cycle.",
+              "We always charge interest on promotional purchases and their related fees from the date you make the purchase.",
+              "If you did not pay your balance in full in the prior billing cycle, interest will be calculated on your balance from the first day of the current billing cycle until we receive your payment in full, even if you pay your balance in full and on time and make no new charges in the current billing cycle."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Penalty APR",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "39.99%",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Ambiguous in the document. Page 1 states one late payment; page 2 states two or more missed minimums in any 12 consecutive billing cycles. The operative page-2 version is the accurate one.",
+            "state": "ambiguous"
+          },
+          "plain_language_warning": {
+            "value": "Miss your minimum payment twice in a year and your rate can jump from 34.99% to 39.99%, and it can stay there indefinitely on your balance.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "This APR may be applied to your account if you make a late payment.",
+              "A Penalty APR may be applied if we do not receive the total minimum payment due on your account by the payment due date two or more times during any 12 consecutive billing cycles."
+            ],
+            "state": "ambiguous"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Minimum Interest Charge",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$2.00",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "If the interest calculated for a billing cycle is less than $2.00, you are charged $2.00 instead.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If you owe any interest in a month but the amount works out to less than $2.00, you are charged $2.00 instead. This only matters on very small balances, and it is minor.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "If you are charged interest, the charge will be no less than $2.00."
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Late Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$30, or $41 if you were late in any of the prior six billing cycles. Never more than the minimum payment that was due.",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "You do not pay at least the total minimum payment by the due date.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If you miss your minimum payment by the due date, you are charged $30, and $41 if you have slipped even once in the last six months. Worse, two misses in a year can push your rate up to the 39.99% penalty APR.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We will charge this fee if we do not receive the total minimum payment due on your account by the due date in accordance with the requirements set forth on each billing statement."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Promotional Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "2% of the total promotional transaction amount, including taxes, delivery and other applicable charges",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Choosing a promotion of 18 months or longer that has no interest and requires equal monthly payments.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A long 'no interest' promotion still costs 2% of the full purchase, including tax and delivery. The fee is folded into your promotional balance and your equal monthly payments, so it is easy to miss. On a $2,000 promotional purchase that is a $40 fee.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "2% of total promotional transaction amount for some promotions with a duration of 18 months or more.",
+              "We will charge this fee, which may be referred to as a promo fee, for promotions 18 months or longer with no interest and required equal monthly payments. The promotional fee will be calculated based on the total promotional transaction amount, including taxes, delivery and other applicable charges. The promotional fee will be included in your promotional purchase balance used to calculate your required equal monthly payments."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Returned Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$30, or $41 if you had a returned payment fee in any one or more of the prior six billing cycles; not more than the amount permitted by applicable law",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any payment that is not honored, is returned unpaid, or cannot be processed for any reason, including a check, other instrument, or electronic payment authorization.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A bounced or unprocessable payment costs $30, rising to $41 if it happens again within six billing cycles. You can be charged even if the bank later resubmits the payment and it clears. The fee is added to your balance as a new purchase, so it also accrues interest at 34.99%.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We will charge this fee for any returned payment, such as if any check, other instrument, or electronic payment authorization you provide us in payment on your account is not honored, returned unpaid or cannot be processed for any reason.",
+              "$30, if you have not had a returned payment fee in each of the prior six billing cycles.",
+              "$41, if you have had a returned payment fee in any one or more of the prior six billing cycles.",
+              "A returned payment fee may be charged even if your payment is honored on a subsequent representment."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Paper Statement Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$1.99 per month",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any billing cycle in which your balance is over $2.50 and you are sent a paper statement, even if you also receive it electronically. Avoided only by electing electronic-only statements on the servicing site.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Paper statements cost $1.99 a month, about $24 a year, unless you opt out. Also receiving e-statements does not waive the fee; you must choose electronic-only statements. The fee is added to your balance as a new purchase and accrues interest.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We will charge a $1.99 monthly Paper Statement Fee to your account. We will charge this fee in any billing cycle in which your balance is greater than $2.50 and you are sent a monthly billing statement in paper form, even if you also are provided it in electronic form. You can avoid the fee each billing cycle you are provided your monthly billing statement only in electronic form."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Expedited Phone Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated in the agreement",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Making an expedited payment over the phone, if the bank allows phone payments.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Paying by phone on an expedited basis may cost an extra fee, and the agreement does not say how much. Ask the amount before you pay this way.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We may allow you to make payments over the phone but we may charge you a fee to make expedited phone payments."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Collection Costs",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated; includes court costs and reasonable attorneys' fees",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "The bank refers your account to an outside attorney (not a salaried employee) to collect. Under the agreement, a late payment alone counts as a default.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If your account goes to an outside attorney for collection, you may owe the bank's collection costs, including court costs and attorneys' fees, with no cap stated. Note that a single late payment counts as a default under this agreement.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "If we ask an attorney who is not our salaried employee to collect your account, we may charge you our collection costs. These include court costs and reasonable attorneys' fees.",
+              "You are in default if you make a late payment, do not follow any other term of this Agreement or become bankrupt or insolvent."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        }
+      ]
+    },
+    {
+      "card_id": "first_premier",
+      "issuer": "First PREMIER Bank",
+      "card_type": "subprime card",
+      "fees": [
+        {
+          "fee_name": {
+            "value": "Annual Percentage Rate (APR) for Purchases",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "36.0%",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Interest is charged on purchases from the date each purchase posts until paid in full. Avoidable only by paying the entire balance by the due date each month (grace period of at least 27 days).",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "At 36%, carrying any purchase balance is very expensive. Pay the full balance by the due date or interest runs on purchases.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Annual Percentage Rate (APR) for Purchases: 36.0%",
+              "We will not charge you any interest on purchases if you pay your entire balance by the due date each month."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "APR for Cash Advances",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "36.0%",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any cash advance. No grace period: interest accrues from the transaction date and cannot be avoided by paying in full.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Cash advances are charged 36% interest from day one, with no grace period. Paying in full by the due date does not erase that interest.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "APR for Cash Advances: 36.0%",
+              "There is no grace period for transactions that post to your Credit Account as Cash Advances. These transactions are subject to INTEREST CHARGES from the date of the transaction."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Program Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$95.00 one-time, paid in full before the account is opened",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged once, up front. The $95 must be paid in full before the account is opened, so it is a precondition to getting the card rather than a charge against the credit line.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "You must pay $95 up front, before the account is even opened, just to get the card. It is money out of pocket, on top of the other set-up fees.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We require a one-time up front Program Fee of $95.00 to be paid in full before the Credit Account is opened to offset the risk associated with the Credit Account."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Annual Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$75.00 the first year, $45.00 each subsequent year",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged once the account is opened and in about the same billing cycle each following year.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A $75 annual fee hits in year one (then $45), charged to the account as soon as it opens. On a $300 limit that is what cuts your initial available credit to about $225 before you have spent anything.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We impose an Annual Fee on your Credit Account of $75.00 for the first year, and $45.00 for each subsequent year.",
+              "Based on your initial credit limit of $300.00, your initial available credit will be only about $225.00."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Monthly Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$0.00 the first year, then $6.25 per month ($75.00 annually)",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged every month after the introductory first year, until the account is closed and the balance is $20.00 or less.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "After a free first year, a $6.25 monthly fee ($75 a year) is billed every month on a $300 limit. It keeps billing until the account is closed and nearly paid off.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Your Credit Account will be charged a Monthly Fee of $0.00 for the first year (introductory) and $6.25 per month ($75.00 annually) each month thereafter.",
+              "This fee will be billed until your Credit Account is closed and the balance is $20.00 or less."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Cash Advance Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$8.00 or 5% of each cash advance, whichever is greater",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any cash advance, in addition to the cash advance interest charge.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Every cash advance costs $8 or 5%, whichever is greater, on top of 36% interest that starts immediately.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "In addition to the periodic INTEREST CHARGE on Cash Advances, there is an additional fee of $8.00 or 5% of the amount of each Cash Advance, whichever is greater."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Credit Limit Increase Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "25% of the amount of the credit limit increase",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Automatically assessed each time an unsecured credit limit increase is approved, which can be as soon as 13 months after opening.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Getting more credit costs 25% of the increase. A $100 increase triggers a $25 fee, leaving only $75 of new available credit.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Each time your Credit Account is eligible for and approved for an unsecured credit limit increase, a Credit Limit Increase Fee in the amount of 25% of the amount of the credit limit increase will be assessed to your Credit Account."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Late Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$28.00 the first time, up to $39.00 if late again within the next six billing cycles",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Not paying at least the Minimum Payment plus Past Due Amount by 5 pm Central on the due date. Capped at the minimum plus past due amount in that cycle.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A late payment costs $28, rising to $39 if it happens again within six cycles. The cutoff is 5 pm Central on the due date.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We will charge a Late Payment Fee if we do not receive a payment at least equal to the Minimum Payment plus the Past Due Amount shown on your Statement by 5 pm Central Time (the payment cutoff time) on your Payment Due Date.",
+              "The first time you do not pay at least the Minimum Payment plus Past Due Amount by the cutoff time on your Payment Due Date, we will charge a Late Payment Fee of $28.00. If you do not pay at least this amount on time again in the next six billing cycles, we will charge a Late Payment Fee of $39.00 each time."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Return Item Charge",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Up to $28.00 the first time, up to $39.00 if another payment is returned within the next six billing cycles",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "A payment you make is returned unpaid. Can be charged even if the bank re-presents the item and it then clears.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A bounced payment costs up to $28, rising to up to $39 on a repeat within six cycles, even if the payment later clears on re-presentment.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "If a payment you make is returned unpaid, we will charge you a Return Item Charge of up to $28.00. If another payment is returned in the next six billing cycles, we will charge a Return Item Charge of up to $39.00."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Foreign Currency Transaction Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "3% of the transaction amount in U.S. dollars",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any transaction in a foreign currency.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Foreign-currency transactions carry a 3% fee.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Foreign Currency Transaction Fee: 3% of the Transaction Amount in U.S. dollars."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Additional Card Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$29.00 per year for each additional card",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Authorizing an additional card on the account. Charged annually per additional card.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Adding a card costs $29 a year, each.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "If you authorize us to issue an additional Card on the Credit Account there is an Additional Card Fee of $29.00 imposed annually for each additional Card."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Express Delivery Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$35.00",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Requesting express delivery of a card. Available only for lost, stolen, or replacement cards.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Rushing a replacement card costs $35, and express delivery is only offered for lost, stolen, or replacement cards.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We impose a $35.00 fee for the express delivery of your Card. This service is only available for lost, stolen, or replacement Cards."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Collection Costs",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated as a dollar amount; all court and collection costs, including reasonable attorneys' fees, Warning Bulletin costs, and card confiscation costs",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Incurred as a result of your default. Covers court costs, collection costs, and reasonable outside attorneys' fees, with no cap stated.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If your account defaults, you pay the bank's court and collection costs, including attorneys' fees, on top of the balance. No cap is stated.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "To the extent permitted by law, you must pay all court and collection costs, including reasonable attorneys' fees, the costs of placing your Credit Account in the Warning Bulletin and the costs of confiscating your Card, that we incur as a result of your default."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Minimum Interest Charge",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "No less than $1.00 in any billing cycle in which interest is charged",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any billing cycle in which an interest charge based on a periodic rate is imposed.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If any interest is charged, it is rounded up to at least $1.00.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Minimum Interest Charge: If you are charged interest, the charge will be no less than $1.00.",
+              "The minimum INTEREST CHARGE is $1.00 for each Billing Cycle during which an INTEREST CHARGE based on a periodic rate is imposed."
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Copying Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$3.00 per copy",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Requesting a duplicate of a sales draft, statement, or other document.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A copy of a sales draft, statement, or other document costs $3 each.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "If you request a duplicate of any sales draft, Statement, or other document, we will charge you $3.00 for each copy we provide."
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Wire Transfer Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$5.00 per transaction",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Each wire transfer.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Each wire transfer costs $5.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Wire Transfer Fee: $5.00 per Transaction."
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        }
+      ]
+    },
+    {
+      "card_id": "golden_1",
+      "issuer": "Golden 1 Credit Union",
+      "card_type": "credit union control",
+      "fees": [
+        {
+          "fee_name": {
+            "value": "Annual Percentage Rate (APR) for Purchases",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated in this document; variable, set as the U.S. Prime Rate plus a Margin in the separate Credit Card Account Opening Disclosure.",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Interest accrues on purchases from the transaction date. You can avoid it by paying the entire statement balance for purchases by the due date each month; any carried purchase balance is charged interest.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Pay your purchase balance in full by the due date and you owe no interest on purchases. Carry any purchase balance and interest runs from the day each purchase posts. The rate is not in this agreement and moves with the Prime Rate.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.",
+              "You can avoid interest charges on purchases by paying the entire statement balance for purchases each month by the date on which the payment is due.",
+              "Otherwise, the balance for purchases on your Account, and subsequent advances from the date they are posted to the Account, will be subject to an interest charge."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Annual Percentage Rate (APR) for Cash Advances",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated in this document; variable, set as the U.S. Prime Rate plus a Margin in the separate Credit Card Account Opening Disclosure.",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Any cash advance (including a convenience check posted as a cash advance). No grace period: interest accrues from the transaction or posting date and cannot be avoided even if the balance is paid in full by the due date.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Cash advances accrue interest from day one, and paying them off in full by the due date does not erase that interest. The rate is not stated in this agreement.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.",
+              "You cannot avoid interest charges on cash advances, balance transfers and transaction fees",
+              "Unless otherwise stated, we will charge interest starting on the transaction date for all cash advances and balance transfers."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Annual Percentage Rate (APR) for Balance Transfers",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated in this document; variable, set as the U.S. Prime Rate plus a Margin in the separate Credit Card Account Opening Disclosure.",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Any balance transfer. No grace period: interest accrues from the date the transfer posts and cannot be avoided even if the balance is paid in full by the due date.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Balance transfers accrue interest from the day they post, and paying them off in full by the due date does not erase that interest. The rate is not stated in this agreement.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.",
+              "You cannot avoid interest charges on cash advances, balance transfers and transaction fees",
+              "you will incur the interest charges accrued from the date the cash advance or balance transfer is posted to your Account."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Foreign Transaction Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated in this document; disclosed in the Account Opening Disclosure.",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Any transaction processed outside the United States, which the document notes may include internet transactions, even ones made from home.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "You are charged this fee on any transaction processed outside the US. The catch: this can include online purchases from foreign merchants, so you can be charged even while shopping from home, without knowingly using a foreign currency.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Purchases and cash advances made in foreign currencies will be billed to you in U.S. dollars. All transactions processed outside of the United States (which may include internet transactions) will be charged a foreign transaction fee in the amount disclosed on your Credit Card Account Opening Disclosure (as amended from time to time)."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Late Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "up to $15",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "When minimum payment amount due is not paid within 15 days from the date and time given in the billing statement.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Pay at least the minimum due within 15 days of the date and time given in the billing statement to avoid a fee of up to $15.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "To avoid a late payment fee, you must pay us at least the minimum payment amount within 15 days after the date and time provided in the billing statement.",
+              "Late Payment Fee: Up to $15"
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Expedited Card Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$18",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged when you request rush delivery of a card.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If you ask for a card to be delivered quickly, it costs $18. Wait for standard delivery to avoid it.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Expedited Card Fee: $18"
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Copy Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$10 per copy",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged when you request a copy of a billing statement or a transaction receipt (sales slip).",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Requesting a paper copy of a statement or receipt costs $10 each. Use online statements and records to avoid it.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Copy of Billing Statement of Transaction Receipt (sales slip): $10"
+            ],
+            "state": "grounded"
+          },
+          "severity": "low"
+        },
+        {
+          "fee_name": {
+            "value": "Collection Costs",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated as a dollar amount; all costs incurred to collect, including collection agency fees and reasonable attorney fees (caps vary by state)",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Golden 1 incurs costs to collect an amount you owe or to enforce its rights, such as after a default.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If your account goes to collection, you pay the credit union's collection costs, including collection agency fees and outside attorney fees, on top of the balance. No dollar cap is stated outside a few states.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "You shall pay all costs incurred by us in collecting any amount you owe or in enforcing or protecting our rights."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        }
+      ]
+    },
+    {
+      "card_id": "chase",
+      "issuer": "JPMorgan Chase Bank, N.A.",
+      "card_type": "megabank card",
+      "fees": [
+        {
+          "fee_name": {
+            "value": "Purchase APR",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "18.24% to 27.74%, based on the Prime Rate",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Interest is charged on new purchases only if the entire balance is not paid by the due date. Balance transfers and cash advances are always charged interest from the date of the transaction.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Pay your balance in full by the due date to avoid interest on purchases, which runs up to 27.74%. Balance transfers and cash advances have no grace period and are charged from day one.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Purchase Annual Percentage Rate (APR) 18.24% to 27.74%. This APR will vary with the market based on the Prime Rate.",
+              "We will not charge you interest on new purchases if you pay your entire balance or Interest Saving Balance by the due date each month. We will begin charging interest on balance transfers and cash advances on the transaction date."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Cash Advance APR",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "28.49%, variable, based on the Prime Rate",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Interest is charged on cash advances from the transaction date. There is no grace period.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "A cash advance has no grace period, so interest starts the day you take it and there is no way to avoid it. It runs at 28.49%, higher than the purchase rate.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Cash Advance APR 28.49%. This APR will vary with the market based on the Prime Rate.",
+              "We will begin charging interest on balance transfers and cash advances on the transaction date."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Penalty APR",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Up to 29.99%, variable linked to Prime Rate",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "You fail to pay the minimum payment by the due date, or you make a payment that is returned unpaid.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Miss a minimum payment or bounce a payment and your rate can jump to as high as 29.99%. If you are more than 60 days late, it applies to all your existing balances, not just new purchases. It can stay indefinitely, though making six consecutive on-time minimum payments removes it.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We may apply the Penalty APR to your account if you: fail to make a Minimum Payment by the date and time that it is due; or make a payment to us that is returned unpaid.",
+              "If we do not receive the Minimum Payment within 60 days of the date and time that it is due, then we also may apply the Penalty APR. If we apply it in this instance, the Penalty APR will apply to all existing balances on your account and new transactions. If you make six consecutive minimum payments when due beginning with your first payment due after we apply the Penalty APR, then the Penalty APR will no longer apply."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Chase Pay Over Time Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Monthly fee, up to 1.72% of each eligible transaction amount or the amount you select to pay over time",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "When you create a Chase Pay Over Time plan, if available, to pay eligible transactions or a balance in equal monthly payments over a period of time.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If you put a purchase on a pay-over-time plan, it carries either interest (capped at your purchase APR) or a monthly fee of up to 1.72%, but not both, and Chase decides which. The fee is only shown when you set up the plan, so check it before you commit.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Monthly fee of up to 1.72% of the amount of each eligible purchase transaction or amount you select to pay over time with no interest, just a fixed monthly fee.",
+              "Chase Pay Over Time plan balances are subject to either interest not to exceed the Purchase APR (and may be a promotional or fixed rate), or a fixed monthly Chase Pay Over Time Fee, but not both. Whether a plan is subject to interest or the Chase Pay Over Time Fee is at our discretion and will be disclosed to you at the time of plan creation."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Balance Transfer Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$5 or 5% of the amount of each transfer, whichever is greater",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged on each balance transfer. Note this account may not be eligible for balance transfers.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Each balance transfer costs $5 or 5% of the amount, whichever is greater, so a $2,000 transfer costs $100 up front. Factor that into whether a transfer actually saves you money.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Either $5 or 5% of the amount of each transfer, whichever is greater."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Cash Advance Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "$10 or 5% of the amount of each transaction, whichever is greater",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Charged on each cash advance, on top of the 28.49% cash advance interest that starts immediately.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Every cash advance costs $10 or 5%, whichever is greater, and that is on top of 28.49% interest with no grace period. Taking $400 in cash costs $20 up front and starts accruing interest the same day.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Either $10 or 5% of the amount of each transaction, whichever is greater."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Late Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Up to $40. First violation capped at $29; up to $40 if another late payment occurs within six billing periods. Never more than the minimum payment that was due.",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "You do not pay at least the minimum payment by the due date.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Miss your minimum payment and you are charged up to $29 the first time, rising to $40 if it happens again within six months. A missed payment can also trigger the penalty APR, which is the bigger cost.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Late Payment Up to $40.",
+              "A single violation of each type will not exceed $29. However, if another violation of the same type occurs within six monthly billing periods we will charge up to the maximum fee in the table above. The Late Payment and Return Payment fees will not exceed the related minimum payment that was due."
+            ],
+            "state": "grounded"
+          },
+          "severity": "high"
+        },
+        {
+          "fee_name": {
+            "value": "Return Payment Fee",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Up to $40. First violation capped at $29; up to $40 if another occurs within six billing periods. Never more than the minimum payment that was due.",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "A payment you make is not honored, is returned unpaid, or cannot be processed.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If a payment bounces, you are charged up to $29, rising to $40 on a repeat within six months. A returned payment can also trigger the penalty APR.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "Return Payment Up to $40.",
+              "A single violation of each type will not exceed $29. However, if another violation of the same type occurs within six monthly billing periods we will charge up to the maximum fee in the table above. The Late Payment and Return Payment fees will not exceed the related minimum payment that was due."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Balance Transfer APR",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "18.24% to 27.74% variable (Prime Rate plus 11.49% to 20.99%, max APR 29.99%)",
+            "state": "grounded"
+          },
+          "trigger": {
+            "value": "Any balance transfer. Interest begins on the transaction date with no interest-free period, so unlike purchases it cannot be avoided by paying the statement in full by the due date.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "Balance transfers are charged up to 27.74% from the transfer date with no grace period, so interest starts immediately even if you pay on time, on top of the upfront transfer fee.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "We add 11.49% to 20.99% to the Prime Rate to determine the Purchase/My Chase Loan/Balance Transfer APR (daily periodic rate currently 0.04998% to 0.07600%).",
+              "Balance Transfers, Checks and Cash Advances do not have an interest-free period and if these balances are not paid in full by paying your New Balance or Interest Saving Balance by the due date and time, you will lose your interest-free period on new purchases."
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        },
+        {
+          "fee_name": {
+            "value": "Collection Costs",
+            "state": "grounded"
+          },
+          "amount": {
+            "value": "Not stated; collection costs, attorneys' fees, court costs, and other enforcement expenses, to the extent permitted by law",
+            "state": "unstated"
+          },
+          "trigger": {
+            "value": "Being in default by failing to pay Chase, such as not paying at least the minimum payment when due.",
+            "state": "grounded"
+          },
+          "plain_language_warning": {
+            "value": "If you default by not paying, Chase can require you to pay its collection costs, attorneys' fees, and court costs, on top of the balance you owe. No amount or cap is stated.",
+            "state": "grounded"
+          },
+          "source_quote": {
+            "quotes": [
+              "we will require you to pay our collection costs, attorneys\u2019 fees, court costs, and all other expenses of enforcing our rights"
+            ],
+            "state": "grounded"
+          },
+          "severity": "med"
+        }
+      ]
+    }
+  ],
+  "version": "1.9"
+}

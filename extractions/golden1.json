@@ -1,0 +1,66 @@
+[
+  {
+    "fee_name": {"value": "APR for Purchases", "state": "grounded"},
+    "amount": {"value": "Variable rate equal to the U.S. Prime Rate (the Index) plus a Margin set in the Credit Card Account Opening Disclosure; the specific Margin and resulting rate are not stated in this agreement.", "state": "unstated"},
+    "trigger": {"value": "Interest is charged on purchase balances. You can avoid purchase interest by paying the entire statement balance for purchases each month by the due date (grace period); otherwise purchases accrue interest.", "state": "grounded"},
+    "plain_language_warning": {"value": "The purchase interest rate is variable (Prime plus an undisclosed margin) and is not spelled out in this agreement, so you must check your Account Opening Disclosure for the actual number. You can avoid purchase interest entirely by paying your full statement balance by the due date each month.", "state": "grounded"},
+    "source_quote": {"quotes": ["The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.", "The APR is a variable rate and may increase or decrease based on the U.S. Prime Rate as published in the Money Rates section of The Wall Street Journal.", "Grace Period on Purchases Only: You can avoid interest charges on purchases by paying the entire statement balance for purchases each month by the date on which the payment is due."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Cash Advances", "state": "grounded"},
+    "amount": {"value": "Variable rate equal to the U.S. Prime Rate (the Index) plus a Margin set in the Credit Card Account Opening Disclosure; the specific Margin and resulting rate are not stated in this agreement.", "state": "unstated"},
+    "trigger": {"value": "Interest is charged on cash advances starting on the transaction/posting date. There is no grace period: even if you pay the entire cash advance balance by the due date, you still owe the interest accrued from the date it posted.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances start accruing interest immediately from the posting date with no grace period, so you pay interest even if you pay the balance in full by the due date. The rate is variable and is not stated in this agreement; check your Account Opening Disclosure for the number.", "state": "grounded"},
+    "source_quote": {"quotes": ["The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.", "Unless otherwise stated, we will charge interest starting on the transaction date for all cash advances and balance transfers.", "You cannot avoid interest charges on cash advances, balance transfers and transaction fees; even if you pay the entire cash advance balance or balance transfer balance by the payment due date, you will incur the interest charges accrued from the date the cash advance or balance transfer is posted to your Account."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "APR for Balance Transfers", "state": "grounded"},
+    "amount": {"value": "Variable rate equal to the U.S. Prime Rate (the Index) plus a Margin set in the Credit Card Account Opening Disclosure; the specific Margin and resulting rate are not stated in this agreement.", "state": "unstated"},
+    "trigger": {"value": "Interest is charged on balance transfers starting on the transaction/posting date. There is no grace period: even if you pay the entire balance transfer balance by the due date, you still owe the interest accrued from the date it posted.", "state": "grounded"},
+    "plain_language_warning": {"value": "Balance transfers begin accruing interest immediately from the posting date with no grace period, so paying in full by the due date does not avoid the interest. The rate is variable and is not stated in this agreement; check your Account Opening Disclosure for the number.", "state": "grounded"},
+    "source_quote": {"quotes": ["The APR for purchases, balance transfers, and cash advances, applicable to your Account is determined by adding a Margin, as set forth in the Credit Card Account Opening Disclosure, to the Index in effect as of the first day of each billing cycle.", "Unless otherwise stated, we will charge interest starting on the transaction date for all cash advances and balance transfers.", "You cannot avoid interest charges on cash advances, balance transfers and transaction fees; even if you pay the entire cash advance balance or balance transfer balance by the payment due date, you will incur the interest charges accrued from the date the cash advance or balance transfer is posted to your Account."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "Up to $15", "state": "grounded"},
+    "trigger": {"value": "Charged if you do not pay at least the minimum payment amount within 15 days after the date and time provided in the billing statement; paying the minimum within that 15-day window avoids it.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you miss the minimum payment you can be charged up to $15, but only after a 15-day cushion past the billing statement date, so paying the minimum within that window avoids it.", "state": "grounded"},
+    "source_quote": {"quotes": ["Late Payment Fee: Up to $15", "To avoid a late payment fee, you must pay us at least the minimum payment amount within 15 days after the date and time provided in the billing statement."], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Expedited Card Fee", "state": "grounded"},
+    "amount": {"value": "$18", "state": "grounded"},
+    "trigger": {"value": "Charged when you request expedited (rush) issuance or delivery of a card; a standard card has no such fee.", "state": "grounded"},
+    "plain_language_warning": {"value": "Requesting a rush/expedited card costs a one-time $18; waiting for standard delivery avoids it.", "state": "grounded"},
+    "source_quote": {"quotes": ["Expedited Card Fee: $18"], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Copy of Billing Statement or Transaction Receipt (sales slip) Fee", "state": "grounded"},
+    "amount": {"value": "$10", "state": "grounded"},
+    "trigger": {"value": "Charged each time you request a copy of a billing statement or a transaction receipt (sales slip).", "state": "grounded"},
+    "plain_language_warning": {"value": "Requesting a copy of a past billing statement or transaction receipt costs $10 per copy; statements can be viewed electronically by enrolling in online statements.", "state": "grounded"},
+    "source_quote": {"quotes": ["Copy of Billing Statement of Transaction Receipt (sales slip): $10"], "state": "grounded"},
+    "severity": "low"
+  },
+  {
+    "fee_name": {"value": "Foreign Transaction Fee", "state": "grounded"},
+    "amount": {"value": "Not stated in this agreement; charged in the amount disclosed on your Credit Card Account Opening Disclosure (as amended from time to time).", "state": "unstated"},
+    "trigger": {"value": "Charged on all transactions processed outside of the United States, which may include some internet transactions.", "state": "grounded"},
+    "plain_language_warning": {"value": "Any transaction processed outside the U.S., which can include some internet purchases, is charged a foreign transaction fee, but the fee amount is not given in this agreement, so check your Account Opening Disclosure.", "state": "grounded"},
+    "source_quote": {"quotes": ["All transactions processed outside of the United States (which may include internet transactions) will be charged a foreign transaction fee in the amount disclosed on your Credit Card Account Opening Disclosure (as amended from time to time)."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Costs of Collection", "state": "grounded"},
+    "amount": {"value": "Not a fixed amount: all costs of collecting what you owe, including collection agency fees and reasonable attorney's fees; in some states (for example Alabama, Georgia, Kansas) attorney's fees after default are capped at 15% of the unpaid debt, or a higher amount a court may allow.", "state": "unstated"},
+    "trigger": {"value": "Charged if you default and the credit union incurs costs collecting what you owe or enforcing or protecting its rights.", "state": "grounded"},
+    "plain_language_warning": {"value": "If you default and the credit union has to collect, you can be billed its collection costs, including collection agency fees and attorney's fees, which are largely open-ended (some states cap attorney's fees at 15% of the unpaid debt).", "state": "grounded"},
+    "source_quote": {"quotes": ["You shall pay all costs incurred by us in collecting any amount you owe or in enforcing or protecting our rights. Costs of collection include, but are not limited to, collection agency fees.", "For Alabama borrowers: attorney's fees after default shall not exceed 15% of the unpaid debt, or such higher amount as a court may allow."], "state": "grounded"},
+    "severity": "med"
+  }
+]

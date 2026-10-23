@@ -1,0 +1,82 @@
+[
+  {
+    "fee_name": {"value": "Purchase APR (BECU Cash Back Visa)", "state": "grounded"},
+    "amount": {"value": "17.24% to 26.24%, based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest charged on purchase balances. No interest if you pay your entire balance by the due date each month (grace period of at least 23 days after the close of the billing cycle).", "state": "grounded"},
+    "plain_language_warning": {"value": "Carrying a purchase balance past the due date costs 17.24% to 26.24% APR. You avoid it only by paying the full balance each cycle, and the rate rises and falls with the Prime Rate.", "state": "grounded"},
+    "source_quote": {"quotes": ["17.24% to 26.24%, based on your creditworthiness.", "This APR will vary with the market based on the Prime Rate.", "Your due date is at least 23 days after the close of each billing cycle. We will not charge\nyou interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Balance Transfer APR (BECU Cash Back Visa)", "state": "grounded"},
+    "amount": {"value": "17.24% to 26.24%, based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest on balances transferred to the card. Per the special notice, you avoid interest only by paying your entire balance, including transferred balances, in full each month.", "state": "grounded"},
+    "plain_language_warning": {"value": "Transferred balances are charged 17.24% to 26.24% APR. Even with no balance-transfer fee, interest applies unless you pay your entire balance, including the transfer, in full each month.", "state": "grounded"},
+    "source_quote": {"quotes": ["Your APR will be 17.24% to 26.24%, based on your creditworthiness. This APR will vary\nwith the market based on the Prime Rate.", "You will pay interest on any purchases (including\nrecurring automatic payments) unless you pay your entire balance (including both\ntransferred balances and purchase balances) in full."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance APR (BECU Cash Back Visa)", "state": "grounded"},
+    "amount": {"value": "17.24% to 26.24%, based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest on cash advances. The documented grace period covers only purchases, so paying the balance in full does not avoid interest on cash advances.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances are charged 17.24% to 26.24% APR, and the grace period does not cover them, so interest applies even if you pay your bill in full.", "state": "grounded"},
+    "source_quote": {"quotes": ["17.24% to 26.24%, based on your creditworthiness. This APR will vary with the market\nbased on the Prime Rate.", "We will not charge\nyou interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment (BECU Cash Back Visa)", "state": "grounded"},
+    "amount": {"value": "Up to $25", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment is not made by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "A late payment costs up to $25, and it is easy to incur if a due date slips.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $25"], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Returned Payment (BECU Cash Back Visa)", "state": "grounded"},
+    "amount": {"value": "Up to $25", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment is returned, for example a bounced autopay.", "state": "grounded"},
+    "plain_language_warning": {"value": "A returned payment, such as a bounced autopay, costs up to $25.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $25"], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Purchase APR (BECU Visa)", "state": "grounded"},
+    "amount": {"value": "0.00% introductory APR for twelve (12) months from account opening, then 13.24% to 24.24% based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest on purchase balances after the 12-month 0% introductory period ends. No interest if you pay your entire balance by the due date each month (grace period of at least 23 days).", "state": "grounded"},
+    "plain_language_warning": {"value": "After a 12-month 0% introductory period, purchases are charged 13.24% to 24.24% APR. The intro rate is temporary; once it ends you owe interest on any balance not paid in full.", "state": "grounded"},
+    "source_quote": {"quotes": ["0.00% Introductory APR for twelve (12) months from date of account opening.\nAfter that, your APR will be 13.24% to 24.24%, based on your creditworthiness.\nThis APR will vary with the market based on the Prime Rate.", "Please note that once your 12-month 0%\nintroductory purchase APR ends, you will pay interest on any purchases (including\nrecurring automatic payments) unless you pay your entire balance (including both\ntransferred balances and purchase balances) in full."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Balance Transfer APR (BECU Visa)", "state": "grounded"},
+    "amount": {"value": "0.00% introductory APR for twelve (12) months from date of transfer when transfers are completed within 90 days of account opening, then 13.24% to 24.24% based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest on balances transferred to the card. The 0% intro rate applies only to transfers completed within 90 days of account opening; after the intro period the variable rate applies.", "state": "grounded"},
+    "plain_language_warning": {"value": "Balance transfers get 0% APR for 12 months only if completed within 90 days of opening; after that the rate is 13.24% to 24.24%.", "state": "grounded"},
+    "source_quote": {"quotes": ["0.00% Introductory APR for twelve (12) months from date of transfer when transfers are\ncompleted within 90 days of account opening.", "After that, your APR will be 13.24% to 24.24%, based on your creditworthiness. This APR\nwill vary with the market based on the Prime Rate."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Cash Advance APR (BECU Visa)", "state": "grounded"},
+    "amount": {"value": "13.24% to 24.24%, based on creditworthiness; variable with the market based on the Prime Rate", "state": "grounded"},
+    "trigger": {"value": "Interest on cash advances, with no introductory rate. The documented grace period covers only purchases, so paying the balance in full does not avoid interest on cash advances.", "state": "grounded"},
+    "plain_language_warning": {"value": "Cash advances are charged 13.24% to 24.24% APR with no introductory rate, and the grace period does not cover them.", "state": "grounded"},
+    "source_quote": {"quotes": ["13.24% to 24.24%, based on your creditworthiness. This APR will vary with the market\nbased on the Prime Rate.", "We will not charge\nyou interest on purchases if you pay your entire balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment (BECU Visa)", "state": "grounded"},
+    "amount": {"value": "Up to $25", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment is not made by the due date.", "state": "grounded"},
+    "plain_language_warning": {"value": "A late payment costs up to $25, and it is easy to incur if a due date slips.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $25"], "state": "grounded"},
+    "severity": "high"
+  },
+  {
+    "fee_name": {"value": "Returned Payment (BECU Visa)", "state": "grounded"},
+    "amount": {"value": "Up to $25", "state": "grounded"},
+    "trigger": {"value": "Charged when a payment is returned, for example a bounced autopay.", "state": "grounded"},
+    "plain_language_warning": {"value": "A returned payment, such as a bounced autopay, costs up to $25.", "state": "grounded"},
+    "source_quote": {"quotes": ["Up to $25"], "state": "grounded"},
+    "severity": "med"
+  }
+]

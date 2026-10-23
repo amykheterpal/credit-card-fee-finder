@@ -1,0 +1,123 @@
+{
+  "description": "Seeded calibration set for the Fee-Trap Finder LLM judge. Each case is a single field with an extracted value, a golden reference, a real document excerpt, and the KNOWN-correct verdict (expected). Excerpts are verbatim from the Chase and Golden 1 agreements in the golden set. Balanced 8 pass / 8 fail across amount, trigger, and warning. Used to measure how often the judge lands the known verdict before trusting its numbers.",
+  "excerpts": {
+    "chase_fee_table": "Transaction Fees. Balance Transfers: Either $5 or 5% of the amount of each transfer, whichever is greater. Cash Advances: Either $10 or 5% of the amount of each transaction, whichever is greater. Foreign Transactions: None. Penalty Fees. Late Payment: Up to $40. Return Payment: Up to $40. Return Check: None. Penalty Fees: A single violation of each type will not exceed $29. However, if another violation of the same type occurs within six monthly billing periods we will charge up to the maximum fee in the table above. The Late Payment and Return Payment fees will not exceed the related minimum payment that was due.",
+    "golden1_grace": "Grace Period on Purchases Only: You can avoid interest charges on purchases by paying the entire statement balance for purchases each month by the date on which the payment is due. Otherwise, the balance for purchases on your Account, and subsequent advances from the date they are posted to the Account, will be subject to an interest charge. You cannot avoid interest charges on cash advances, balance transfers and transaction fees; even if you pay the entire cash advance balance or balance transfer balance by the payment due date, you will incur the interest charges accrued from the date the cash advance or balance transfer is posted to your Account.",
+    "rush_card": "The Bank may charge a fee for expedited delivery of a replacement card. See your fee schedule for the amount.",
+    "cash_advance_combined": "Cash Advances: Either $10 or 5% of the amount of each transaction, whichever is greater. You cannot avoid interest charges on cash advances, balance transfers and transaction fees; even if you pay the entire cash advance balance or balance transfer balance by the payment due date, you will incur the interest charges accrued from the date the cash advance or balance transfer is posted to your Account."
+  },
+  "cases": [
+    {
+      "id": "c01", "field": "amount", "fee_name": "Cash Advance Fee",
+      "extracted": "$10 or 5% of each cash advance, whichever is greater",
+      "golden": "Either $10 or 5% of the amount of each transaction, whichever is greater.",
+      "excerpt": "chase_fee_table", "expected": "pass",
+      "note": "Reworded but the figure and the whichever-is-greater formula are intact."
+    },
+    {
+      "id": "c02", "field": "amount", "fee_name": "Cash Advance Fee",
+      "extracted": "$10 per cash advance",
+      "golden": "Either $10 or 5% of the amount of each transaction, whichever is greater.",
+      "excerpt": "chase_fee_table", "expected": "fail",
+      "note": "Drops the 5% / whichever-is-greater tier, which understates large advances."
+    },
+    {
+      "id": "c03", "field": "amount", "fee_name": "Cash Advance Fee",
+      "extracted": "Either $5 or 5% of each transaction, whichever is greater",
+      "golden": "Either $10 or 5% of the amount of each transaction, whichever is greater.",
+      "excerpt": "chase_fee_table", "expected": "fail",
+      "note": "Wrong figure: $5 is the balance-transfer fee, not the cash-advance fee."
+    },
+    {
+      "id": "c04", "field": "amount", "fee_name": "Late Payment Fee",
+      "extracted": "Up to $40; a first violation will not exceed $29, and the fee will not exceed the minimum payment that was due",
+      "golden": "Up to $40 (first violation capped at $29; capped at the related minimum payment due)",
+      "excerpt": "chase_fee_table", "expected": "pass",
+      "note": "Captures the headline, the first-violation tier, and the minimum-payment cap."
+    },
+    {
+      "id": "c05", "field": "amount", "fee_name": "Late Payment Fee",
+      "extracted": "A flat $40 every time you pay late",
+      "golden": "Up to $40 (first violation capped at $29; capped at the related minimum payment due)",
+      "excerpt": "chase_fee_table", "expected": "fail",
+      "note": "Overstates as a flat $40 and drops the $29 first-violation tier and the cap."
+    },
+    {
+      "id": "c06", "field": "amount", "fee_name": "Rush Card Fee",
+      "extracted": "Not stated in this document.",
+      "golden": "Not stated (deferred to a separate fee schedule).",
+      "excerpt": "rush_card", "expected": "pass",
+      "note": "Amount genuinely deferred; correctly marked not stated."
+    },
+    {
+      "id": "c07", "field": "trigger", "fee_name": "Cash Advance APR",
+      "extracted": "Interest on cash advances accrues from the date the advance is posted, with no grace period, even if you pay the balance in full by the due date.",
+      "golden": "Cash advances accrue interest from the posting date; there is no grace period for them.",
+      "excerpt": "golden1_grace", "expected": "pass",
+      "note": "Correct condition and preserves the no-grace mechanism the document states."
+    },
+    {
+      "id": "c08", "field": "trigger", "fee_name": "Cash Advance APR",
+      "extracted": "You can avoid interest on cash advances by paying the statement balance in full by the due date.",
+      "golden": "Cash advances accrue interest from the posting date; there is no grace period for them.",
+      "excerpt": "golden1_grace", "expected": "fail",
+      "note": "Asserts a grace period the document explicitly denies for cash advances."
+    },
+    {
+      "id": "c09", "field": "trigger", "fee_name": "Purchase APR",
+      "extracted": "Interest on purchases is avoided by paying the entire purchase statement balance by the payment due date each month.",
+      "golden": "Purchases have a grace period: pay the full purchase balance by the due date to avoid interest.",
+      "excerpt": "golden1_grace", "expected": "pass",
+      "note": "Correct escape hatch for purchases, as the document grants."
+    },
+    {
+      "id": "c10", "field": "trigger", "fee_name": "Purchase APR",
+      "extracted": "Interest is charged on all purchases from the date of purchase with no way to avoid it.",
+      "golden": "Purchases have a grace period: pay the full purchase balance by the due date to avoid interest.",
+      "excerpt": "golden1_grace", "expected": "fail",
+      "note": "Drops the purchase grace period the document provides."
+    },
+    {
+      "id": "c11", "field": "plain_language_warning", "fee_name": "Cash Advance Fee",
+      "extracted": "Each cash advance costs the greater of $10 or 5%, and because cash advances start accruing interest immediately with no grace period, that cost stacks on top of the fee.",
+      "golden": "A cash advance costs $10 or 5% up front and starts accruing interest from day one, so it is one of the most expensive ways to use the card.",
+      "excerpt": "cash_advance_combined", "expected": "pass",
+      "note": "Fee figure and the no-grace stacking are both supported."
+    },
+    {
+      "id": "c12", "field": "plain_language_warning", "fee_name": "Cash Advance Fee",
+      "extracted": "Cash advances are interest-free as long as you pay them off within the grace period, so the only real cost is the $10 fee.",
+      "golden": "A cash advance costs $10 or 5% up front and starts accruing interest from day one, so it is one of the most expensive ways to use the card.",
+      "excerpt": "cash_advance_combined", "expected": "fail",
+      "note": "Invents a grace period the document denies for cash advances."
+    },
+    {
+      "id": "c13", "field": "plain_language_warning", "fee_name": "Late Payment Fee",
+      "extracted": "Paying late can cost up to $40, though a first slip is capped at $29 and the fee never exceeds your minimum payment due.",
+      "golden": "A late payment costs up to $40, with the first one capped at $29 and never more than the minimum payment that was due.",
+      "excerpt": "chase_fee_table", "expected": "pass",
+      "note": "Every claim is supported by the fee-table note."
+    },
+    {
+      "id": "c14", "field": "plain_language_warning", "fee_name": "Late Payment Fee",
+      "extracted": "Paying late triggers a $40 fee and immediately raises your APR to the penalty rate on all of your balances.",
+      "golden": "A late payment costs up to $40, with the first one capped at $29 and never more than the minimum payment that was due.",
+      "excerpt": "chase_fee_table", "expected": "fail",
+      "note": "Invents a penalty-APR consequence not present in the excerpt."
+    },
+    {
+      "id": "c15", "field": "plain_language_warning", "fee_name": "Purchase APR",
+      "extracted": "Pay your full purchase balance by the due date and you owe no purchase interest; carry a balance and interest applies from the posting date.",
+      "golden": "Pay the full purchase balance by the due date to owe no interest on purchases; otherwise interest applies.",
+      "excerpt": "golden1_grace", "expected": "pass",
+      "note": "Supported by the grace-period clause."
+    },
+    {
+      "id": "c16", "field": "plain_language_warning", "fee_name": "Balance Transfer",
+      "extracted": "Balance transfers come with a promotional 0% rate for the first 12 months, so moving a balance here is nearly free.",
+      "golden": "Balance transfers cost $5 or 5% and accrue interest from the posting date with no grace period.",
+      "excerpt": "golden1_grace", "expected": "fail",
+      "note": "Promises a promotional rate the document does not offer and contradicts the no-grace clause."
+    }
+  ]
+}

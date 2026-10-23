@@ -1,0 +1,290 @@
+[
+  {
+    "id": "fp_00",
+    "fee_name": "APR for Purchases",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_01",
+    "fee_name": "APR for Purchases",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_02",
+    "fee_name": "APR for Purchases",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_03",
+    "fee_name": "APR for Cash Advances",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_04",
+    "fee_name": "APR for Cash Advances",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_05",
+    "fee_name": "APR for Cash Advances",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_06",
+    "fee_name": "Program Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_07",
+    "fee_name": "Program Fee",
+    "field": "trigger",
+    "label": "fail"
+  },
+  {
+    "id": "fp_08",
+    "fee_name": "Program Fee",
+    "field": "plain_language_warning",
+    "label": "fail"
+  },
+  {
+    "id": "fp_09",
+    "fee_name": "Annual Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_10",
+    "fee_name": "Annual Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_11",
+    "fee_name": "Annual Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_12",
+    "fee_name": "Monthly Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_13",
+    "fee_name": "Monthly Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_14",
+    "fee_name": "Monthly Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_15",
+    "fee_name": "Cash Advance Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_16",
+    "fee_name": "Cash Advance Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_17",
+    "fee_name": "Cash Advance Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_18",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_19",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_20",
+    "fee_name": "Credit Limit Increase Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_21",
+    "fee_name": "Late Payment Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_22",
+    "fee_name": "Late Payment Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_23",
+    "fee_name": "Late Payment Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_24",
+    "fee_name": "Return Item Charge",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_25",
+    "fee_name": "Return Item Charge",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_26",
+    "fee_name": "Return Item Charge",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_27",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_28",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_29",
+    "fee_name": "Foreign Currency Transaction Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_30",
+    "fee_name": "Additional Card Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_31",
+    "fee_name": "Additional Card Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_32",
+    "fee_name": "Additional Card Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_33",
+    "fee_name": "Express Delivery Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_34",
+    "fee_name": "Express Delivery Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_35",
+    "fee_name": "Express Delivery Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_36",
+    "fee_name": "Collection Costs",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_37",
+    "fee_name": "Collection Costs",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_38",
+    "fee_name": "Collection Costs",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_39",
+    "fee_name": "Minimum Interest Charge",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_40",
+    "fee_name": "Minimum Interest Charge",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_41",
+    "fee_name": "Minimum Interest Charge",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_42",
+    "fee_name": "Copying Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_43",
+    "fee_name": "Copying Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_44",
+    "fee_name": "Copying Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "fp_45",
+    "fee_name": "Wire Transfer Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "fp_46",
+    "fee_name": "Wire Transfer Fee",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "fp_47",
+    "fee_name": "Wire Transfer Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  }
+]

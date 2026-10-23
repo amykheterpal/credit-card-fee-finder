@@ -1,0 +1,26 @@
+[
+  {
+    "fee_name": {"value": "Annual Percentage Rate (APR) for Purchases", "state": "grounded"},
+    "amount": {"value": "24.99%. This APR will vary with the market based on the Prime Rate.", "state": "grounded"},
+    "trigger": {"value": "Interest accrues on purchases from the transaction date, unless you pay your entire statement balance by the due date each month (grace period applies only to purchases paid in full).", "state": "grounded"},
+    "plain_language_warning": {"value": "Purchases carry a 24.99% variable APR. You avoid interest only by paying your full statement balance by the due date each month; if you carry any balance, interest is charged from the transaction date.", "state": "grounded"},
+    "source_quote": {"quotes": ["Annual Percentage Rate (APR) for Purchases: 24.99%. This APR will vary with the market based on the Prime Rate. Interest is charged on purchases from the transaction date unless you pay your entire statement balance by the due date each month."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Foreign Transaction Fee", "state": "grounded"},
+    "amount": {"value": "", "state": "unstated"},
+    "trigger": {"value": "Any transaction processed outside of the United States, which may include some internet transactions.", "state": "grounded"},
+    "plain_language_warning": {"value": "Spending outside the U.S., which can include some online purchases, triggers a foreign transaction fee. The amount is not in this agreement; it is set in your Account Opening Disclosure and can change over time.", "state": "grounded"},
+    "source_quote": {"quotes": ["All transactions processed outside of the United States (which may include internet transactions) will be charged a foreign transaction fee in the amount disclosed on your Account Opening Disclosure, as amended from time to time."], "state": "grounded"},
+    "severity": "med"
+  },
+  {
+    "fee_name": {"value": "Late Payment Fee", "state": "grounded"},
+    "amount": {"value": "Up to $40", "state": "grounded"},
+    "trigger": {"value": "Charged if your total minimum payment is not received by the payment due date shown on your billing statement.", "state": "grounded"},
+    "plain_language_warning": {"value": "Missing your total minimum payment by the due date triggers a late fee of up to $40. It is easily incurred and avoided only by paying at least the minimum on time.", "state": "grounded"},
+    "source_quote": {"quotes": ["We will charge a late payment fee of up to $40 if we do not receive your total minimum payment by the payment due date shown on your billing statement."], "state": "grounded"},
+    "severity": "high"
+  }
+]

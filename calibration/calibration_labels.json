@@ -1,0 +1,98 @@
+[
+  {
+    "id": "c01",
+    "fee_name": "Cash Advance Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "c02",
+    "fee_name": "Cash Advance Fee",
+    "field": "amount",
+    "label": "fail"
+  },
+  {
+    "id": "c03",
+    "fee_name": "Cash Advance Fee",
+    "field": "amount",
+    "label": "fail"
+  },
+  {
+    "id": "c04",
+    "fee_name": "Late Payment Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "c05",
+    "fee_name": "Late Payment Fee",
+    "field": "amount",
+    "label": "fail"
+  },
+  {
+    "id": "c06",
+    "fee_name": "Rush Card Fee",
+    "field": "amount",
+    "label": "pass"
+  },
+  {
+    "id": "c07",
+    "fee_name": "Cash Advance APR",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "c08",
+    "fee_name": "Cash Advance APR",
+    "field": "trigger",
+    "label": "fail"
+  },
+  {
+    "id": "c09",
+    "fee_name": "Purchase APR",
+    "field": "trigger",
+    "label": "pass"
+  },
+  {
+    "id": "c10",
+    "fee_name": "Purchase APR",
+    "field": "trigger",
+    "label": "fail"
+  },
+  {
+    "id": "c11",
+    "fee_name": "Cash Advance Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "c12",
+    "fee_name": "Cash Advance Fee",
+    "field": "plain_language_warning",
+    "label": "fail"
+  },
+  {
+    "id": "c13",
+    "fee_name": "Late Payment Fee",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "c14",
+    "fee_name": "Late Payment Fee",
+    "field": "plain_language_warning",
+    "label": "fail"
+  },
+  {
+    "id": "c15",
+    "fee_name": "Purchase APR",
+    "field": "plain_language_warning",
+    "label": "pass"
+  },
+  {
+    "id": "c16",
+    "fee_name": "Balance Transfer",
+    "field": "plain_language_warning",
+    "label": "fail"
+  }
+]
