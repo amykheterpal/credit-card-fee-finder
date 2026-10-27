@@ -25,7 +25,7 @@ Four metrics, each measuring a different kind of error. Recall and precision nee
 | Groundedness | Of the reported fees, the share whose every listed quote is verbatim in the agreement | Fabricated or paraphrased quotes | No |
 | Severity match | Of the matched fees, the share graded the same severity as the key | Mis-ranked fees | Yes |
 
-Groundedness checks only the quotes that are listed; it does not require a separate quote for every field. Each field carries its own grounding state, and source\_quote is fee-level evidence for the load-bearing facts. Trigger and warning wording are not yet graded; that is the next build step.
+Groundedness checks only the quotes that are listed; it does not require a separate quote for every field. Each field carries its own grounding state, and source\_quote is fee-level evidence for the load-bearing facts. Trigger and warning wording are graded separately by the LLM-as-judge (see below), not by this deterministic harness.
 
 ## Fixture and boundary cases
 
