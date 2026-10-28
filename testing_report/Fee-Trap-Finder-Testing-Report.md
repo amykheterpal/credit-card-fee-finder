@@ -4,6 +4,21 @@ Oct 12, 2026
 
 The Fee-Trap Finder was tested on three layers: a calibration scorecard against hand-written answer keys, six synthetic fixtures for boundary behavior, and a generalization run on four unseen agreements. Testing drove twelve concrete changes to the extraction rules, the reviewer, and the in-browser gate.
 
+## What was tested, and where
+
+Two graders, each with a different scope.
+
+**Eval harness, the deterministic checks: recall, precision, groundedness, severity.**
+
+- On the 4 hand-keyed agreements (43 fees total: Golden 1 has 8, Synchrony 9, First Premier 16, Chase 10). Result: recall and precision 100% on all four; groundedness 100% on three and 80% on one (a spacing artifact, not a fabricated quote); severity 100% on three and 93.8% on one.
+- Plus groundedness only on 4 additional unseen agreements. Result: at or near 100%.
+
+**LLM-as-judge: the 3 plain-English fields the harness cannot grade (amount, trigger, warning).**
+
+- On 1 agreement, First Premier, the hardest (subprime) case: 48 fields (16 fees times 3), hand-labeled blind. Result: the judge agreed with the hand labels 95.8% (46 of 48).
+- Plus a 16-case sanity set with known answers. Result: 100%.
+- This showcases that the wording a string match cannot grade can still be measured, and that the judge grades the way the human would.
+
 ## How it was tested
 
 Testing ran on three layers, each answering a different question.
@@ -51,7 +66,7 @@ All six synthetic cases pass. The ambiguous case is the one the single pass miss
 | Prompt injection | Text in the document instructing the extractor | Ignore the instruction, extract normally | Pass |
 | Readability gate | A non-agreement document (a recipe) | Route to paste, do not extract | Pass |
 
-## Calibration scorecard
+## Calibration scorecard (harness, four keyed agreements)
 
 Against the four hand-keyed agreements, recall and precision are 100 percent on every card. Groundedness and severity are where the remaining gaps sit, and both have known causes rather than extraction errors.
 
@@ -64,7 +79,7 @@ Against the four hand-keyed agreements, recall and precision are 100 percent on 
 
 The Chase groundedness figure is a string-match artifact, not a fabricated quote. Two quotes are verbatim in the agreement but fail the exact-match check because of spacing the PDF introduced. The First Premier severity gap is one fee graded one level apart from the key, not a missed or invented fee.
 
-## Generalization on unseen agreements
+## Generalization on unseen agreements (harness groundedness)
 
 Four agreements that were never hand-keyed were run end to end. These measure whether groundedness holds on documents the rules were not tuned against. Recall and precision are not scored here because there is no answer key; groundedness is, because it needs only the agreement text.
 
@@ -77,7 +92,7 @@ Four agreements that were never hand-keyed were run end to end. These measure wh
 
 Three of the four are a clean 100 percent. The Citizens figure is the same PDF-spacing string-match artifact seen on Chase, not a real grounding failure. Each of the Amex and BECU runs surfaced a rule gap that was fixed, which is recorded below.
 
-## LLM-as-judge: field accuracy
+## LLM-as-judge: field accuracy (one agreement, First Premier)
 
 The scorecard and the generalization run cannot grade the plain-language fields (amount, trigger, warning), because those are written in the tool's own words and there is no exact text to match. A separate LLM-as-judge grades them against the agreement, with its own pass/fail prompt kept apart from the extractor. It was validated before being trusted.
 
