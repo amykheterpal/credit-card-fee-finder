@@ -27,6 +27,17 @@ Four metrics, each measuring a different kind of error. Recall and precision nee
 
 Groundedness checks only the quotes that are listed; it does not require a separate quote for every field. Each field carries its own grounding state, and source\_quote is fee-level evidence for the load-bearing facts. Trigger and warning wording are graded separately by the LLM-as-judge (see below), not by this deterministic harness.
 
+The six fields split between the two graders, each field graded once: the harness checks the three a computer can settle by matching, and the judge checks the three written in plain English.
+
+| Field | Graded by | Check |
+| --- | --- | --- |
+| fee\_name | Eval harness | Fee matching (recall and precision) |
+| source\_quote | Eval harness | Groundedness, every quote verbatim in the agreement |
+| severity | Eval harness | Severity match against the key |
+| amount | LLM judge | Wording accurate and supported by the agreement |
+| trigger | LLM judge | Wording accurate and supported by the agreement |
+| plain\_language\_warning | LLM judge | Wording accurate and supported by the agreement |
+
 ## Fixture and boundary cases
 
 All six synthetic cases pass. The ambiguous case is the one the single pass misses and the critique step catches, which is the loop earning its place.
