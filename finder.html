@@ -102,6 +102,9 @@
   .warn { margin: .6rem 0 .5rem; }
   .field { font-size: .9rem; margin: .35rem 0; }
   .field .lab { color: var(--muted); font-weight: 600; }
+  .amount-line { margin: .55rem 0 .3rem; }
+  .warn-line { font-size: .96rem; margin: .4rem 0 .2rem; line-height: 1.5; }
+  .quote-head { margin: .55rem 0 .1rem; }
   blockquote { margin: .6rem 0 0; padding: .5rem .8rem; background: var(--code-bg); border-radius: 7px; font-size: .84rem; color: var(--fg); border-left: 3px solid var(--line); }
   blockquote p { margin: .25rem 0; }
   .states { margin-top: .6rem; display: flex; gap: .4rem; flex-wrap: wrap; }
@@ -235,8 +238,8 @@
     "OUTPUT: a JSON array of fee objects, each exactly this shape:",
     '{"fee_name":{"value":"...","state":"grounded|unstated|ambiguous"},"amount":{"value":"...","state":"..."},"trigger":{"value":"...","state":"..."},"plain_language_warning":{"value":"...","state":"..."},"source_quote":{"quotes":["..."],"state":"..."},"severity":"high|med|low"}',
     "- amount: the full pricing rule including tiers and formulas, not the summary shorthand.",
-    "- trigger: the condition that causes the fee, including any escape hatch or avoidance condition.",
-    "- plain_language_warning: a consumer-facing caution in your own words, led by the cost and the non-obvious catch.",
+    "- trigger: the condition that sets the fee off, the mechanism, plus any escape hatch or avoidance condition. State only what triggers the fee here, not its cost or downstream consequences.",
+    "- plain_language_warning: a consumer-facing caution in your own words. Lead with the consequence and the non-obvious catch, the real risk and what is easy to miss. Do not restate the trigger mechanism; the reader can already see the trigger. One to three sentences.",
     "- source_quote: verbatim clause(s) from the document behind the amount and trigger.",
     "",
     "FIELD STATES (each field, including fee_name, carries its own): grounded = supported by a verbatim clause; unstated = no clause supports a value (e.g. an amount deferred to a separate disclosure), the fee still gets a record; ambiguous = competing clauses, carry both in source_quote.",
@@ -491,16 +494,16 @@
       });
       var evidence =
         '<div class="field"><span class="lab">When it hits: </span>' + esc(val(f, "trigger")) + '</div>' +
-        (quotes.length ? '<blockquote>' + quotes.map(function (q) { return "<p>" + esc(q) + "</p>"; }).join("") + '</blockquote>' : '') +
+        (quotes.length ? '<div class="field quote-head"><span class="lab">Exact wording from the agreement</span></div><blockquote>' + quotes.map(function (q) { return "<p>" + esc(q) + "</p>"; }).join("") + '</blockquote>' : '') +
         (states.length ? '<div class="states">' + states.map(function (s) { return '<span class="chip">' + esc(s) + '</span>'; }).join("") + '</div>' : '');
       out += '<div class="fee ' + sev + '">' +
         '<div class="fee-head">' +
           '<span class="badge ' + sev + '">' + esc(sev) + '</span>' +
           '<h3 class="fee-name">' + esc(val(f, "fee_name")) + '</h3>' +
           (states.length ? '<span class="flagmark" title="This fee has unstated or ambiguous details">flagged</span>' : '') +
-          '<span class="amount">' + esc(val(f, "amount")) + '</span>' +
         '</div>' +
-        '<p class="warn">' + esc(val(f, "plain_language_warning")) + '</p>' +
+        '<div class="field amount-line"><span class="lab">Amount: </span>' + esc(val(f, "amount")) + '</div>' +
+        '<div class="field warn-line"><span class="lab">Why it matters: </span>' + esc(val(f, "plain_language_warning")) + '</div>' +
         '<details class="evidence"' + (sev === "high" ? " open" : "") + '>' +
           '<summary><span class="caret">▸</span><span class="ev-label"></span></summary>' +
           '<div class="ev-body">' + evidence + '</div>' +

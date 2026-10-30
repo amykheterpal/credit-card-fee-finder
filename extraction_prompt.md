@@ -60,10 +60,13 @@ Field notes:
 - amount: the full pricing rule, not the summary shorthand. Record formulas and
   tiers in full (e.g. "$5 or 5% of the transfer, whichever is greater";
   "$30, or $41 if late in any of the prior six billing cycles").
-- trigger: the plain-language condition that causes the fee, including any
-  escape hatch or exception.
-- plain_language_warning: a consumer-facing caution in your own words, led by
-  the cost and the non-obvious catch.
+- trigger: the condition that sets the fee off, the mechanism, plus any escape
+  hatch or exception. State only what triggers the fee here, not its cost or
+  downstream consequences.
+- plain_language_warning: a consumer-facing caution in your own words. Lead with
+  the consequence and the non-obvious catch, the real risk and what is easy to
+  miss. Do not restate the trigger mechanism; the reader can already see the
+  trigger. One to three sentences.
 - source_quote: a list of verbatim clause(s) from the document (see DECISION RULES).
 - severity: high, med, or low (see SEVERITY).
 
