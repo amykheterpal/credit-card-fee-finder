@@ -118,8 +118,8 @@
   .caret { display: inline-block; transition: transform .15s; font-size: .7em; }
   details.evidence[open] .caret { transform: rotate(90deg); }
   @media (prefers-reduced-motion: reduce) { .caret { transition: none; } }
-  .ev-label::after { content: "Show the exact clause and flags"; }
-  details.evidence[open] .ev-label::after { content: "Hide the clause and flags"; }
+  .ev-label::after { content: "Show the trigger and exact clause"; }
+  details.evidence[open] .ev-label::after { content: "Hide the trigger and exact clause"; }
   .ev-body { padding-bottom: .5rem; }
   .cardfb { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
   .cardfb-label { font-size: .8rem; color: var(--muted); margin-right: .2rem; }
