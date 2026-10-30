@@ -128,7 +128,7 @@ The testing is honest about what it does not yet cover.
 
 - Deterministic field accuracy is limited. The harness scores severity exactly; the trigger and warning wording are now graded by the LLM-as-judge above, calibrated at 95.8% agreement with hand labels, rather than by the string-matching harness.
 - Groundedness is a string match. It can report a false negative when the PDF introduces spacing inside an otherwise verbatim quote, as seen on Chase and Citizens.
-- In-browser extraction is weak on scanned or watermarked PDFs. The readability gate catches these and routes them to paste rather than extracting badly.
+- In-browser extraction is weak on scanned or watermarked PDFs. The readability gate catches these and routes them to paste rather than extracting badly, and it was exercised end to end in the product: a scanned, image-only PDF was stopped by the deterministic pre-check before any model call, and a garbled, watermarked PDF reached the model gate and was routed to paste, with the gate correctly naming the watermark and stray characters as the cause. Reading these PDFs with OCR rather than routing them to paste is a planned next step.
 - Single-pass output varies. The loop reduces this, but a given pass can differ, which is why the harness grades the loop's final output.
 - Feedback is not persisted. The in-app NPS, usefulness, and per-card thumbs are captured in memory for the demo, not stored.
 - The generalization set is unkeyed. Those four runs measure groundedness only, not recall or precision.
